@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prova grafica: da confermare dal cliente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;650;700;800&family=Outfit:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root, [data-theme="dark"] {
+      --c-bg: 14 39 57;
+      --c-bg-soft: 18 48 74;
+      --c-surface: 27 55 76;
+      --c-surface-2: 36 62 83;
+      --c-surface-3: 43 74 98;
+      --c-text: 244 245 239;
+      --c-text-soft: 215 227 232;
+      --c-muted: 169 192 207;
+      --c-muted-2: 196 214 224;
+      --c-line: 58 85 104;
+      --c-line-soft: 42 68 88;
+      --c-brand: 184 221 237;
+      --c-brand-fill: 44 106 143;
+      --c-success: 179 227 201;
+      --c-danger: 255 192 184;
+      --c-warning: 239 206 152;
+      --c-chip-amber: 71 61 47;
+      --c-chip-green: 30 68 60;
+      --c-cta-fill: 240 233 215;
+      --c-cta-ink: 25 55 75;
+      --c-focus: 196 232 249;
+      --m-att-1: 53 28 1;
+      --m-att-2: 28 19 10;
+      --m-att-l: 108 66 16;
+      --m-att-carta: 249 215 185;
+      --m-carta-ink: 13 29 50;
+      --c-hi: 255 255 255;
+
+      --ui-radius-control: 0.470588rem;
+      --ui-radius-tile: 0.647059rem;
+      --ui-radius-field: 0.764706rem;
+      --ui-radius-notice: 0.941176rem;
+      --ui-radius-card: 1.176471rem;
+      --ui-radius-hero: 1.529412rem;
+      --ui-radius-pill: 9999px;
+
+      --s3-fs-12: calc(12rem / 17);
+      --s3-fs-13: calc(13rem / 17);
+      --s3-fs-14: calc(14rem / 17);
+      --s3-fs-15: calc(15rem / 17);
+      --s3-fs-17: calc(17rem / 17);
+      --s3-fs-22: calc(22rem / 17);
+
+      --s3-paper: rgb(22 50 72 / 0.78);
+      --s3-paper-solid: rgb(20 46 66);
+      --s3-tile: rgb(36 62 83 / 0.88);
+      --s3-line: rgb(184 221 237 / 0.16);
+      --s3-hi-soft: rgb(255 255 255 / 0.06);
+      --s3-shadow-paper: 0 10px 28px rgb(0 0 0 / 0.28), inset 0 1px 0 rgb(255 255 255 / 0.05);
+      --s3-ease: cubic-bezier(0.2, 0, 0, 1);
+
+      --home-capsula-w: calc(58rem / 17);
+      --home-riga-x: 15px;
+      --home-riga-gap: 12px;
+      --home-colonna-testo: calc(var(--home-riga-x) + var(--home-capsula-w) + var(--home-riga-gap));
+      --home-confirmation-mark: rgb(var(--m-att-carta));
+      --home-confirmation-tab: rgb(var(--m-att-carta));
+      --home-confirmation-tab-ink: rgb(var(--m-carta-ink));
+      --home-confirmation-tint: rgb(var(--m-att-1));
+
+      --phone-w: 390px;
+      --phone-h: 844px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { font-size: 17px; }
+    body {
+      min-height: 100vh;
+      font-family: Manrope, system-ui, sans-serif;
+      color: rgb(var(--c-text));
+      background:
+        radial-gradient(1200px 700px at 50% -10%, rgb(44 90 120 / 0.35), transparent 55%),
+        rgb(8 22 34);
+    }
+
+    .lab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+      padding: 28px 16px 48px;
+    }
+    .lab-bar {
+      width: min(390px, 100%);
+      display: grid;
+      gap: 12px;
+    }
+    .lab-kicker {
+      margin: 0;
+      font-family: Outfit, system-ui, sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgb(var(--c-muted));
+    }
+    .lab-title {
+      margin: 0;
+      font-family: Outfit, system-ui, sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: rgb(var(--c-text));
+    }
+    .lab-note {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: rgb(var(--c-text-soft));
+    }
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 5px;
+      border: 1px solid var(--s3-line);
+      border-radius: var(--ui-radius-field);
+      background: rgb(var(--c-bg-soft));
+    }
+    .tabs button {
+      min-height: 44px;
+      border: 0;
+      border-radius: 11px;
+      background: transparent;
+      color: rgb(var(--c-text-soft));
+      font: inherit;
+      font-size: var(--s3-fs-13);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .tabs button[aria-selected="true"] {
+      background: rgb(var(--c-cta-fill));
+      color: rgb(var(--c-cta-ink));
+    }
+    .tabs button:focus-visible {
+      outline: 3px solid rgb(var(--c-focus));
+      outline-offset: 2px;
+    }
+    .lab-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .simula {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: rgb(var(--c-text));
+      font: inherit;
+      font-size: var(--s3-fs-13);
+      font-weight: 650;
+      cursor: pointer;
+    }
+    .simula:focus-visible { outline: 3px solid rgb(var(--c-focus)); outline-offset: 3px; border-radius: 8px; }
+    .switch {
+      width: 48px;
+      height: 28px;
+      padding: 3px;
+      border-radius: 999px;
+      background: rgb(var(--c-surface-3));
+      border: 1px solid var(--s3-line);
+      position: relative;
+      flex: none;
+    }
+    .switch::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgb(var(--c-text));
+      transition: transform 220ms var(--s3-ease);
+    }
+    body.is-confirmed .switch { background: rgb(var(--c-chip-green)); border-color: transparent; }
+    body.is-confirmed .switch::after { transform: translateX(20px); background: rgb(var(--c-success)); }
+    .variant-caption {
+      margin: 0;
+      min-height: 3.2em;
+      font-size: var(--s3-fs-13);
+      line-height: 1.5;
+      color: rgb(var(--c-muted-2));
+    }
+
+    .phone {
+      width: var(--phone-w);
+      height: var(--phone-h);
+      border-radius: 36px;
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(120% 80% at 70% 0%, rgb(90 140 170 / 0.22), transparent 50%),
+        linear-gradient(180deg, rgb(18 52 74), rgb(10 28 44) 42%, rgb(8 22 34));
+      box-shadow:
+        0 0 0 1px rgb(255 255 255 / 0.08),
+        0 30px 80px rgb(0 0 0 / 0.45);
+    }
+    .status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 28px 8px;
+      font-size: 15px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      color: rgb(var(--c-text));
+    }
+    .status-icons { display: flex; gap: 6px; align-items: center; opacity: 0.92; }
+
+    .app-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 14px 14px 10px;
+    }
+    .back {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      background: none;
+      color: rgb(var(--c-text));
+      border-radius: var(--ui-radius-control);
+    }
+    .day-title {
+      margin: 0;
+      font-family: Outfit, system-ui, sans-serif;
+      font-size: var(--s3-fs-22);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+    .day-meta {
+      margin: 2px 0 0;
+      font-size: var(--s3-fs-12);
+      font-weight: 700;
+      color: rgb(var(--c-warning));
+    }
+    body.is-confirmed .day-meta { display: none; }
+
+    .carta {
+      margin: 0 16px;
+      border: 1px solid var(--s3-line);
+      border-radius: var(--ui-radius-hero);
+      background: var(--s3-paper);
+      box-shadow: var(--s3-shadow-paper);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+    .voce {
+      position: relative;
+    }
+    .voce + .voce {
+      box-shadow: inset 0 1px 0 var(--s3-line);
+    }
+    .riga {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--home-riga-gap);
+      width: 100%;
+      padding: 16px var(--home-riga-x);
+    }
+    .capsula {
+      position: relative;
+      display: flex;
+      flex: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-width: var(--home-capsula-w);
+      min-height: calc(49rem / 17);
+      padding: 6px;
+      border-radius: var(--ui-radius-field);
+      border: 1px solid var(--s3-line);
+      background: var(--s3-tile);
+      box-shadow: inset 0 1px 0 var(--s3-hi-soft);
+      color: rgb(var(--c-text));
+    }
+    .ora {
+      font-size: var(--s3-fs-15);
+      font-weight: 650;
+      line-height: 1.2;
+      letter-spacing: calc(-0.15rem / 17);
+      font-variant-numeric: tabular-nums;
+    }
+    .corpo { display: grid; flex: 1; gap: 4px; min-width: 0; }
+    .titolo {
+      margin: 0;
+      font-family: Manrope, system-ui, sans-serif;
+      font-size: var(--s3-fs-15);
+      font-weight: 650;
+      line-height: 1.5;
+      letter-spacing: calc(-0.15rem / 17);
+      overflow-wrap: anywhere;
+    }
+    .desc {
+      margin: 0;
+      font-size: var(--s3-fs-13);
+      line-height: 1.5;
+      color: rgb(var(--c-text-soft));
+      overflow-wrap: anywhere;
+    }
+    .indirizzo {
+      margin: 0;
+      font-size: var(--s3-fs-12);
+      line-height: 1.6;
+      color: rgb(var(--c-muted-2));
+      overflow-wrap: anywhere;
+    }
+    .azioni {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0 0.875rem;
+      padding: 0 var(--home-riga-x) 10px var(--home-colonna-testo);
+      margin-top: -8px;
+    }
+    .act {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      min-width: 3rem;
+      min-height: 44px;
+      padding: 0.25rem 0;
+      border: 0;
+      background: none;
+      color: rgb(var(--c-brand) / 0.86);
+      font: inherit;
+      font-size: var(--s3-fs-12);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .act svg { width: 16px; height: 16px; stroke-width: 1.75; flex: none; }
+    .act--wa { color: rgb(var(--c-success) / 0.92); }
+    button, [role="tab"], .act, .simula, .nav { -webkit-tap-highlight-color: transparent; touch-action: manipulation; cursor: pointer; }
+    button:focus-visible, .act:focus-visible {
+      outline: 3px solid rgb(var(--c-focus));
+      outline-offset: 2px;
+    }
+
+    /* Pending chrome that leaves when confirmed */
+    .pending-only { display: none; }
+    .voce.is-pending .pending-only { display: block; }
+    body.is-confirmed .voce.is-pending .pending-only,
+    body.is-confirmed .voce.is-pending [data-show] {
+      display: none !important;
+    }
+
+    /* Shared pending transitions */
+    .voce.is-pending .pending-slot {
+      display: grid;
+      grid-template-rows: 1fr;
+      opacity: 1;
+      transition: grid-template-rows 320ms var(--s3-ease), opacity 240ms var(--s3-ease), margin 320ms var(--s3-ease);
+    }
+    body.is-confirmed .voce.is-pending .pending-slot {
+      grid-template-rows: 0fr;
+      opacity: 0;
+      margin: 0 !important;
+      pointer-events: none;
+    }
+    .pending-slot > * { overflow: hidden; }
+
+    .voce.is-pending .capsula {
+      transition: border-color 280ms var(--s3-ease), background 280ms var(--s3-ease), box-shadow 280ms var(--s3-ease);
+    }
+
+    /* ========== VARIANTE A: accento + pillola + segmenti ========== */
+    body[data-variant="A"] .voce.is-pending {
+      isolation: isolate;
+      background: linear-gradient(90deg, rgb(var(--c-warning) / 0.12), rgb(var(--c-warning) / 0.04) 28px, transparent 72px);
+    }
+    body[data-variant="A"] .voce.is-pending::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 14px;
+      bottom: 14px;
+      width: 3px;
+      border-radius: 3px;
+      background: rgb(var(--c-warning));
+      z-index: 1;
+      pointer-events: none;
+      transition: opacity 240ms var(--s3-ease), transform 280ms var(--s3-ease);
+    }
+    body.is-confirmed[data-variant="A"] .voce.is-pending {
+      background: transparent;
+    }
+    body.is-confirmed[data-variant="A"] .voce.is-pending::before {
+      opacity: 0;
+      transform: scaleY(0.4);
+    }
+    body[data-variant="A"] .voce.is-pending .capsula {
+      border-color: rgb(var(--c-warning) / 0.45);
+    }
+    body.is-confirmed[data-variant="A"] .voce.is-pending .capsula {
+      border-color: var(--s3-line);
+      background: var(--s3-tile);
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      width: fit-content;
+      margin: 2px 0 1px;
+      padding: 4px 8px;
+      border-radius: var(--ui-radius-control);
+      background: rgb(var(--c-chip-amber));
+      color: rgb(var(--c-warning));
+      font-size: var(--s3-fs-12);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .pill svg { width: 12px; height: 12px; stroke-width: 2.25; }
+    .ask-line {
+      margin: 2px 0 0;
+      font-size: var(--s3-fs-13);
+      font-weight: 650;
+      line-height: 1.45;
+      color: rgb(var(--c-text));
+    }
+    .segment {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      margin: 0 var(--home-riga-x) 8px var(--home-colonna-testo);
+      padding: 3px;
+      min-height: 50px;
+      border-radius: var(--ui-radius-field);
+      background: rgb(var(--c-bg) / 0.55);
+      border: 1px solid var(--s3-line);
+    }
+    .segment button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 44px;
+      border: 0;
+      border-radius: 11px;
+      background: transparent;
+      color: rgb(var(--c-text));
+      font: inherit;
+      font-size: var(--s3-fs-12);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .segment button svg { width: 15px; height: 15px; stroke-width: 2.25; }
+    .segment .si { background: rgb(var(--c-surface-2)); }
+    .segment .si svg { color: rgb(var(--c-success)); }
+    .segment .chiedi { color: rgb(var(--c-text-soft)); }
+
+    /* ========== VARIANTE B: vetro e alone ========== */
+    body[data-variant="B"] .voce.is-pending {
+      margin: 8px 8px;
+      border-radius: var(--ui-radius-card);
+      background: rgb(28 48 64 / 0.55);
+      box-shadow:
+        0 0 0 1px rgb(var(--c-warning) / 0.38),
+        0 10px 28px rgb(53 28 1 / 0.35),
+        inset 0 1px 0 rgb(255 255 255 / 0.06);
+    }
+    body.is-confirmed[data-variant="B"] .voce.is-pending {
+      margin: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: inset 0 1px 0 var(--s3-line);
+    }
+    body[data-variant="B"] .voce.is-pending + .voce {
+      box-shadow: none;
+    }
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 2px 0 0;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 9px;
+      border-radius: var(--ui-radius-pill);
+      background: rgb(var(--c-chip-amber));
+      color: rgb(var(--c-warning));
+      font-size: var(--s3-fs-12);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .chip svg { width: 13px; height: 13px; stroke-width: 2.25; }
+    .btns-b {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 2px var(--home-riga-x) 10px var(--home-colonna-testo);
+    }
+    .btns-b button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 44px;
+      padding: 0 14px;
+      border-radius: var(--ui-radius-field);
+      font: inherit;
+      font-size: var(--s3-fs-12);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btns-b .si {
+      border: 0;
+      background: rgb(var(--c-cta-fill));
+      color: rgb(var(--c-cta-ink));
+    }
+    .btns-b .si svg { width: 15px; height: 15px; stroke-width: 2.25; }
+    .btns-b .chiedi {
+      border: 1px solid rgb(var(--c-warning) / 0.7);
+      background: transparent;
+      color: rgb(var(--c-text));
+    }
+    .btns-b .chiedi svg { width: 15px; height: 15px; }
+
+    /* ========== VARIANTE C: minimo, punto + riga azioni ========== */
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgb(var(--c-warning));
+      box-shadow: 0 0 0 3px rgb(var(--c-warning) / 0.22);
+    }
+    body[data-variant="C"] .voce.is-pending .capsula { gap: 6px; padding-bottom: 8px; }
+    body.is-confirmed[data-variant="C"] .voce.is-pending .capsula { gap: 4px; }
+    body.is-confirmed[data-variant="C"] .voce.is-pending .dot {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    .dot { transition: opacity 240ms var(--s3-ease), transform 240ms var(--s3-ease); }
+    .meta-wait {
+      margin: 0;
+      font-size: var(--s3-fs-12);
+      font-weight: 650;
+      color: rgb(var(--c-warning));
+    }
+    .swipe {
+      display: flex;
+      align-items: stretch;
+      margin: 0 var(--home-riga-x) 10px var(--home-colonna-testo);
+      min-height: 44px;
+      border-radius: var(--ui-radius-field);
+      overflow: hidden;
+      border: 1px solid var(--s3-line);
+      background: rgb(var(--c-bg) / 0.35);
+    }
+    .swipe .si {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 44px;
+      border: 0;
+      background: rgb(var(--c-surface-2));
+      color: rgb(var(--c-text));
+      font: inherit;
+      font-size: var(--s3-fs-12);
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: inset -1px 0 0 var(--s3-line);
+    }
+    .swipe .si svg { width: 15px; height: 15px; stroke-width: 2.25; color: rgb(var(--c-success)); }
+    .swipe .chiedi {
+      flex: 0.95;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 44px;
+      border: 0;
+      background: transparent;
+      color: rgb(var(--c-text-soft));
+      font: inherit;
+      font-size: var(--s3-fs-12);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .swipe .chiedi svg { width: 15px; height: 15px; }
+
+    /* Per-variant visibility */
+    [data-show] { display: none !important; }
+    body[data-variant="A"] [data-show~="A"] { display: revert !important; }
+    body[data-variant="B"] [data-show~="B"] { display: revert !important; }
+    body[data-variant="C"] [data-show~="C"] { display: revert !important; }
+    body[data-variant="A"] .segment[data-show~="A"] { display: grid !important; }
+    body[data-variant="B"] .btns-b[data-show~="B"] { display: flex !important; }
+    body[data-variant="C"] .swipe[data-show~="C"] { display: flex !important; }
+    body[data-variant="A"] .pill[data-show~="A"] { display: inline-flex !important; }
+    body[data-variant="B"] .chip[data-show~="B"] { display: inline-flex !important; }
+    body[data-variant="C"] .dot[data-show~="C"] { display: block !important; }
+    body[data-variant="C"] .meta-wait[data-show~="C"] { display: block !important; }
+
+    /* Screenshot mode: only the phone, no lab chrome */
+
+    @media (max-width: 430px) {
+      .lab { padding: 0 0 32px; gap: 0; }
+      .lab-bar {
+        position: sticky; top: 0; z-index: 30;
+        width: 100%; padding: 8px 12px 10px;
+        background: rgb(8 22 34 / 0.94);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+      .lab-kicker, .lab-title, .lab-note:not(.keep), .caption { display: none; }
+      .lab-bar .tabs { margin: 0; }
+      .lab-row { margin-top: 8px; }
+      .phone {
+        width: 100%; height: auto; min-height: calc(100dvh - 4px);
+        border-radius: 0; box-shadow: none;
+      }
+    }
+
+    body.shot {
+      background: rgb(8 22 34);
+      min-height: 0;
+    }
+    body.shot .lab { padding: 0; gap: 0; }
+    body.shot .lab-bar { display: none; }
+    body.shot .phone {
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body data-variant="A">
+  <div class="lab">
+    <div class="lab-bar">
+      <p class="lab-kicker">Prova grafica</p>
+      <h1 class="lab-title">Appuntamenti da confermare</h1>
+      <p class="lab-note">Tre alternative più sobrie della fascia pesca e del riquadro «Il cliente ha confermato?». I colori e i caratteri sono quelli di Artigiano (Notte d'acciaio, Manrope e Outfit).</p>
+      <p class="lab-note keep"><a href="moderno.html" style="color:rgb(184 221 237);font-weight:700">Versioni D, E e F, interattive</a>. Aprilo in Safari, non come anteprima di un allegato.</p>
+      <div class="tabs" role="tablist" aria-label="Varianti di prova">
+        <button type="button" role="tab" id="tab-A" aria-selected="true" data-variant="A">Variante A</button>
+        <button type="button" role="tab" id="tab-B" aria-selected="false" data-variant="B">Variante B</button>
+        <button type="button" role="tab" id="tab-C" aria-selected="false" data-variant="C">Variante C</button>
+      </div>
+      <div class="lab-row">
+        <button type="button" class="simula" id="simula" aria-pressed="false">
+          <span class="switch" aria-hidden="true"></span>
+          Simula confermato
+        </button>
+      </div>
+      <p class="variant-caption" id="caption"></p>
+    </div>
+
+    <div class="phone" id="phone">
+      <div class="status">
+        <span>9:41</span>
+        <span class="status-icons" aria-hidden="true">
+          <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="0.6"/><rect x="4.5" y="5" width="3" height="7" rx="0.6"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.6"/><rect x="13.5" y="0" width="3" height="12" rx="0.6"/></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 8.2C3.2 5.6 6 4.2 8 4.2c2 0 4.8 1.4 7 4"/><path d="M3.4 9.6c1.5-1.7 3-2.5 4.6-2.5s3.1.8 4.6 2.5"/><circle cx="8" cy="11" r="1" fill="currentColor" stroke="none"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.6" y="1" width="21" height="10" rx="2.4" stroke="currentColor" stroke-width="1.2"/><rect x="2.2" y="2.6" width="16.2" height="6.8" rx="1.2" fill="currentColor"/><path d="M23.2 4.2v3.6c1 .4 1.2 1 1.2 1.8V6c0-.8-.2-1.4-1.2-1.8Z" fill="currentColor"/></svg>
+        </span>
+      </div>
+
+      <header class="app-head">
+        <span class="back" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </span>
+        <div>
+          <h2 class="day-title">Lunedì · dopodomani</h2>
+          <p class="day-meta">1 da confermare</p>
+        </div>
+      </header>
+
+      <section class="carta" aria-label="Programma del giorno">
+        <!-- Confermata -->
+        <article class="voce">
+          <div class="riga">
+            <div class="capsula"><span class="ora">08:30</span></div>
+            <div class="corpo">
+              <h3 class="titolo">Giulia Bianchi</h3>
+              <p class="desc">Controllo impianto citofono</p>
+              <p class="indirizzo">14, Via delle Rose, Paese Esempio</p>
+            </div>
+          </div>
+          <div class="azioni">
+            <button type="button" class="act">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-8-8 19-2-7-9-4z"/></svg>
+              Naviga
+            </button>
+          </div>
+        </article>
+
+        <!-- Da confermare -->
+        <article class="voce is-pending" id="pending-card">
+          <div class="riga">
+            <div class="capsula">
+              <span class="ora">10:00</span>
+              <span class="dot pending-only" data-show="C" aria-hidden="true"></span>
+            </div>
+            <div class="corpo">
+              <h3 class="titolo">Mario Rossi</h3>
+              <span class="pill pending-only" data-show="A">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>
+                Da confermare
+              </span>
+              <div class="chip-row pending-only" data-show="B">
+                <span class="chip">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>
+                  In attesa di conferma
+                </span>
+              </div>
+              <p class="desc">Problemi connessione internet sky</p>
+              <p class="indirizzo">12, Via dei Tigli, Paese Esempio</p>
+              <p class="ask-line pending-only" data-show="A">Il cliente ha confermato?</p>
+              <p class="meta-wait pending-only" data-show="C">In attesa del cliente</p>
+            </div>
+          </div>
+
+          <div class="pending-slot pending-only">
+            <div>
+              <div class="segment" data-show="A">
+                <button type="button" class="si" data-confirm>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  Confermato
+                </button>
+                <button type="button" class="chiedi">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                  Chiedi
+                </button>
+              </div>
+              <div class="btns-b" data-show="B">
+                <button type="button" class="si" data-confirm>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  Confermato
+                </button>
+                <button type="button" class="chiedi">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                  Chiedi
+                </button>
+              </div>
+              <div class="swipe" data-show="C">
+                <button type="button" class="si" data-confirm>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  Confermato
+                </button>
+                <button type="button" class="chiedi">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                  Chiedi
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="azioni">
+            <button type="button" class="act">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Chiama
+            </button>
+            <button type="button" class="act">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-8-8 19-2-7-9-4z"/></svg>
+              Naviga
+            </button>
+            <button type="button" class="act act--wa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.15 6.43 2.15 11.89c0 1.76.46 3.47 1.34 4.99L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.89-4.43 9.89-9.89C21.94 6.43 17.5 2 12.04 2Zm5.76 14.01c-.24.68-1.18 1.24-1.93 1.4-.52.11-1.2.2-3.49-.75-2.93-1.21-4.82-4.18-4.97-4.37-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.66.5.24.58.82 2 .89 2.15.07.15.12.32.02.52-.1.19-.14.32-.28.49-.14.17-.3.38-.43.51-.14.14-.29.29-.12.56.16.27.73 1.2 1.56 1.94 1.07.96 1.97 1.26 2.25 1.4.27.14.43.12.59-.07.16-.19.68-.8.86-1.07.18-.27.36-.23.61-.14.24.1 1.54.73 1.8.86.27.14.44.2.51.31.07.11.07.64-.17 1.32Z"/></svg>
+              WhatsApp
+            </button>
+          </div>
+        </article>
+
+        <!-- Confermata -->
+        <article class="voce">
+          <div class="riga">
+            <div class="capsula"><span class="ora">10:15</span></div>
+            <div class="corpo">
+              <h3 class="titolo">Luca Neri</h3>
+              <p class="desc">Adattamento attico e predisposizione punti luce</p>
+              <p class="indirizzo">8, Via dei Gelsomini, Paese Esempio</p>
+            </div>
+          </div>
+          <div class="azioni">
+            <button type="button" class="act">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-8-8 19-2-7-9-4z"/></svg>
+              Naviga
+            </button>
+          </div>
+        </article>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const captions = {
+      A: "Variante A. Un filetto ambra a sinistra e una pillola piccola accanto al titolo. La domanda resta una riga di testo; Confermato e Chiedi stanno in un controllo segmentato, senza riquadro marrone.",
+      B: "Variante B. La card ha un alone di vetro ambra e un chip «In attesa di conferma». Confermato è il pulsante crema dell'app, Chiedi è un fantasma orlato.",
+      C: "Variante C. Quasi identica alle confermate: un punto sull'ora, una riga meta e una sola barra d'azione. Il segno c'è, ma non ruba la scena."
+    };
+    const body = document.body;
+    const caption = document.getElementById("caption");
+    const simula = document.getElementById("simula");
+
+    function setVariant(v) {
+      body.dataset.variant = v;
+      document.querySelectorAll('.tabs [role="tab"]').forEach((btn) => {
+        btn.setAttribute("aria-selected", String(btn.dataset.variant === v));
+      });
+      caption.textContent = captions[v];
+      try {
+        const url = new URL(location.href);
+        url.searchParams.set("v", v);
+        history.replaceState(null, "", url);
+      } catch (_) {}
+    }
+
+    function setConfirmed(on) {
+      body.classList.toggle("is-confirmed", on);
+      simula.setAttribute("aria-pressed", String(on));
+    }
+
+    document.querySelectorAll('.tabs [role="tab"]').forEach((btn) => {
+      btn.addEventListener("click", () => setVariant(btn.dataset.variant));
+    });
+    simula.addEventListener("click", () => setConfirmed(!body.classList.contains("is-confirmed")));
+    document.querySelectorAll("[data-confirm]").forEach((btn) => {
+      btn.addEventListener("click", () => setConfirmed(true));
+    });
+
+    const params = new URLSearchParams(location.search);
+    const v = (params.get("v") || "A").toUpperCase();
+    setVariant(["A", "B", "C"].includes(v) ? v : "A");
+    if (params.get("confirmed") === "1") setConfirmed(true);
+    if (params.get("shot") === "1") body.classList.add("shot");
+  </script>
+</body>
+</html>
