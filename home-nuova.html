@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B1220">
+<title>Inizio · Artigiano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Manrope:wght@500;600;700;800&family=Outfit:wght@500;650&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b1220;
+    --bg-2: #10192b;
+    --ink: #f4f7fb;
+    --ink-2: #d5deea;
+    --ink-3: #c5d2e2;
+    --line: rgba(213, 222, 234, 0.22);
+    --vetro: rgba(16, 28, 48, 0.72);
+    --vetro-2: rgba(22, 36, 58, 0.88);
+    --lastra: linear-gradient(180deg, rgba(236, 244, 255, 0.14), rgba(16, 28, 48, 0.55));
+    --ombra: 0 18px 40px rgba(0, 0, 0, 0.28);
+    --amber: #e8a23a;
+    --amber-2: #f6e3a8;
+    --amber-ink: #3a2a08;
+    --danger: #ffe8e4;
+    --danger-bg: #4a1d22;
+    --ok: #b6f0c8;
+    --ok-bg: #143226;
+    --blu: #d7e6ff;
+    --focus: #f6e3a8;
+    --dock: rgba(10, 16, 28, 0.78);
+    --r: 22px;
+    --r-sm: 14px;
+    --serif: "Fraunces", "Iowan Old Style", Palatino, "Times New Roman", serif;
+    --sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --num: "Outfit", "Manrope", sans-serif;
+    --blur: 18px;
+    --pad: 16px;
+    --dock-h: 76px;
+    color-scheme: dark;
+  }
+  [data-tema="avorio"] {
+    --bg: #faf6f0;
+    --bg-2: #f3ece3;
+    --ink: #141820;
+    --ink-2: #243044;
+    --ink-3: #2c3a4e;
+    --line: rgba(20, 24, 32, 0.14);
+    --vetro: rgba(255, 250, 244, 0.78);
+    --vetro-2: rgba(255, 252, 247, 0.94);
+    --lastra: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 248, 236, 0.88));
+    --ombra: 0 16px 36px rgba(48, 36, 18, 0.12);
+    --amber: #c4841a;
+    --amber-2: #f6e3a8;
+    --amber-ink: #3a2a08;
+    --danger: #4e1218;
+    --danger-bg: #f8d6d4;
+    --ok: #0e4a32;
+    --ok-bg: #d7f5e4;
+    --blu: #1d4e9f;
+    --focus: #8a5a08;
+    --dock: rgba(255, 250, 244, 0.86);
+    color-scheme: light;
+  }
+  [data-stile="espressiva"] {
+    --r: 28px;
+    --r-sm: 18px;
+    --blur: 0px;
+    --vetro: #16243c;
+    --vetro-2: #1c2d4a;
+    --lastra: linear-gradient(165deg, #1e3a68 0%, #14243f 55%, #1a2a22 140%);
+    --ombra: 0 10px 0 rgba(0, 0, 0, 0.18);
+  }
+  [data-tema="avorio"][data-stile="espressiva"] {
+    --vetro: #fff7ea;
+    --vetro-2: #fff;
+    --lastra: linear-gradient(165deg, #ffe3a4 0%, #fff6e4 42%, #e7f0ff 100%);
+    --ombra: 0 8px 0 rgba(58, 42, 8, 0.08);
+  }
+  [data-stile="espressiva"] .carta,
+  [data-stile="espressiva"] .voce,
+  [data-stile="espressiva"] .lastra { border: 0; }
+  [data-stile="espressiva"] .lastra .faccia { background: #14243f; }
+  [data-tema="avorio"][data-stile="espressiva"] .lastra .faccia { background: #fff1d4; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { background: none; border: 0; padding: 0; }
+  button, a, [role="slider"] { touch-action: manipulation; }
+  svg { width: 20px; height: 20px; flex: none; vertical-align: -4px; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .app {
+    height: 100dvh;
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background:
+      radial-gradient(120% 60% at 100% -10%, rgba(232, 162, 58, 0.18), transparent 46%),
+      radial-gradient(90% 50% at -10% 20%, rgba(90, 140, 220, 0.16), transparent 42%),
+      var(--bg);
+  }
+  [data-stile="espressiva"] .app {
+    background:
+      radial-gradient(80% 40% at 110% 0%, rgba(232, 162, 58, 0.45), transparent 50%),
+      radial-gradient(70% 40% at -20% 80%, rgba(80, 140, 255, 0.28), transparent 46%),
+      var(--bg);
+  }
+  .header {
+    padding: calc(8px + env(safe-area-inset-top)) var(--pad) 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 5;
+  }
+  .header[data-scrolled="true"] {
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: blur(16px);
+  }
+  .mark {
+    width: 36px; height: 36px; border-radius: 12px;
+    display: grid; place-items: center;
+    background: conic-gradient(from 210deg, #8eb6ff, #f6e3a8, #8eb6ff);
+    color: #10203a;
+    font-family: var(--serif);
+    font-weight: 650;
+    font-size: 22px;
+    flex: none;
+  }
+  [data-tema="avorio"] .mark { color: #10203a; }
+  .quando { min-width: 0; flex: 1; }
+  .quando b, .quando span { display: block; }
+  .quando b { font-size: 13px; font-weight: 700; text-transform: capitalize; }
+  .quando span { font-family: var(--num); font-size: 12px; font-weight: 650; color: var(--ink-2); letter-spacing: 0.04em; }
+  .icona {
+    width: 44px; height: 44px; border-radius: 14px;
+    display: grid; place-items: center; position: relative; flex: none;
+  }
+  .icona svg { width: 22px; height: 22px; }
+  .badge {
+    position: absolute; top: 6px; right: 4px;
+    min-width: 16px; height: 16px; padding: 0 4px;
+    border-radius: 99px; background: #e23b3b; color: #fff;
+    font-size: 10px; font-weight: 800; display: grid; place-items: center;
+  }
+  .proto {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+    padding: 0 var(--pad) 8px;
+  }
+  .chip {
+    min-height: 36px; padding: 0 8px; border-radius: 999px;
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--vetro-2) 80%, transparent);
+    color: var(--ink-2); font-size: 13px; font-weight: 700;
+  }
+  .chip[aria-pressed="true"] {
+    background: var(--ink); color: var(--bg); border-color: transparent;
+  }
+  [data-tema="avorio"] .chip[aria-pressed="true"] { color: #faf6f0; }
+  main {
+    flex: 1; overflow: auto; overscroll-behavior: contain;
+    padding: 4px var(--pad) calc(var(--dock-h) + env(safe-area-inset-bottom) + 18px);
+    -webkit-overflow-scrolling: touch;
+  }
+  .pull {
+    height: 0; overflow: visible; display: grid; justify-items: center;
+    color: var(--ink-2); font-size: 13px; font-weight: 700;
+  }
+  .pull span {
+    transform: translate3d(0, -36px, 0); opacity: 0;
+    background: var(--vetro-2); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 12px;
+  }
+  .nota-prova { margin: 0 0 12px; color: var(--ink-2); font-size: 13px; font-weight: 600; }
+  .kicker {
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    margin: 6px 0 0;
+  }
+  .kicker strong {
+    font-size: 12px; letter-spacing: 0.12em; font-weight: 800; color: var(--ink-2);
+  }
+  .rete {
+    display: inline-flex; align-items: center; gap: 6px;
+    min-height: 32px; color: var(--ink-2); font-size: 13px; font-weight: 700;
+  }
+  .punto { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; }
+  [data-offline="true"] .punto { background: #e0a23a; }
+  h1.saluto {
+    font-family: var(--serif);
+    font-size: 2.15rem; font-weight: 560; letter-spacing: -0.03em;
+    line-height: 1.05; margin: 4px 0 6px;
+  }
+  [data-stile="espressiva"] h1.saluto { font-weight: 650; font-size: 2.35rem; }
+  .lede { margin: 0 0 14px; color: var(--ink-2); font-size: 1.02rem; line-height: 1.35; font-weight: 600; }
+  .lede em { font-style: normal; color: var(--ink); }
+  .carta, .lastra, .voce, .recap, .avviso {
+    border-radius: var(--r);
+    border: 1px solid var(--line);
+    background: var(--vetro);
+    box-shadow: var(--ombra);
+  }
+  [data-stile="vetro"] .carta,
+  [data-stile="vetro"] .lastra,
+  [data-stile="vetro"] .voce,
+  [data-stile="vetro"] .recap {
+    backdrop-filter: blur(var(--blur)) saturate(1.3);
+  }
+  .carta, .recap, .avviso { padding: 14px 14px 12px; margin: 0 0 12px; }
+  .lastra { padding: 14px; margin: 0 0 12px; position: relative; background: var(--lastra); }
+  .testa-sez {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+    margin-bottom: 8px;
+  }
+  .testa-sez h2, .carta h2, .lastra h2 { font-size: 1.15rem; margin: 0; letter-spacing: -0.02em; }
+  .link {
+    min-height: 44px; display: inline-flex; align-items: center; gap: 4px;
+    color: var(--blu); font-weight: 800; font-size: 14px;
+  }
+  .recap { display: flex; gap: 10px; background: var(--ok-bg); color: var(--ok); border-color: transparent; padding: 10px 12px; }
+  .recap p, .recap h2 { margin: 0; }
+  .recap h2 { font-size: 1rem; }
+  .recap .x { margin-left: auto; width: 44px; height: 44px; }
+  .striscia {
+    display: flex; gap: 8px; align-items: center;
+    padding: 10px 12px; margin: 0 0 12px; border-radius: var(--r-sm);
+    background: color-mix(in srgb, var(--blu) 16%, var(--vetro-2));
+    color: var(--ink); font-weight: 700; font-size: 14px;
+  }
+  .striscia button { margin-left: auto; min-height: 44px; font-weight: 800; color: var(--blu); }
+  .fase {
+    display: flex; align-items: center; gap: 8px; color: var(--ink-2);
+    font-size: 13px; font-weight: 800;
+  }
+  .fase .tra { margin-left: auto; font-family: var(--num); color: var(--ink); }
+  .pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    min-height: 26px; padding: 0 8px; border-radius: 999px;
+    background: var(--danger-bg); color: var(--danger); font-size: 12px; font-weight: 800;
+  }
+  .pill.ambra { background: var(--amber-2); color: var(--amber-ink); }
+  .pill.blu { background: color-mix(in srgb, var(--blu) 18%, var(--vetro-2)); color: var(--ink); }
+  .pill.verde { background: var(--ok-bg); color: var(--ok); }
+  .parola {
+    margin: 8px 0 0; font-size: 13px; font-weight: 800; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--amber-ink);
+    background: var(--amber-2); display: inline-block; border-radius: 999px; padding: 4px 8px;
+  }
+  .identita { margin-top: 8px; }
+  .nome {
+    display: flex; align-items: center; gap: 10px; margin: 0;
+    font-size: 1.25rem; letter-spacing: -0.02em;
+  }
+  .nome span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .anello {
+    width: 72px; height: 72px; border-radius: 50%; flex: none;
+    display: grid; place-items: center; position: relative;
+    background: radial-gradient(circle at 40% 35%, #ffe9b0, #f6d56a 68%, #e8a23a);
+    color: #1a1004; font-family: var(--num); font-weight: 650; font-size: 16px;
+  }
+  .anello i, .anello b {
+    position: absolute; inset: -7px; border-radius: 50%;
+    border: 2px solid rgba(232, 162, 58, 0.75); pointer-events: none;
+  }
+  .anello b { animation: impulso 1.8s ease-out infinite; }
+  @keyframes impulso {
+    0% { transform: scale(0.92); opacity: 0.8; }
+    100% { transform: scale(1.18); opacity: 0; }
+  }
+  .desc, .luogo, .squadra { margin: 4px 0 0; color: var(--ink-2); font-weight: 650; font-size: 14px; }
+  .flag {
+    margin: 10px 0 0; display: flex; gap: 8px; align-items: center;
+    background: var(--danger-bg); color: var(--danger);
+    border-radius: 12px; padding: 8px 10px; font-weight: 800; font-size: 14px;
+  }
+  .scorri { position: relative; overflow: hidden; border-radius: 16px; }
+  .chiedi {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 108px;
+    background: #1fa855; color: #06210f; font-weight: 800;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  }
+  .faccia {
+    position: relative; background: var(--vetro-2); text-align: left; width: 100%;
+    border-radius: 16px; padding: 4px 4px 8px; touch-action: pan-y;
+  }
+  .lastra .faccia { background: var(--bg-2); padding: 8px; border-radius: 16px; }
+  .cursore {
+    position: relative; height: 52px; margin-top: 12px; border-radius: 999px;
+    background: #f6e3a8; color: #3a2a08; touch-action: none; user-select: none;
+  }
+  .cursore .fill {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 100%;
+    background: #efd48a; border-radius: inherit; transform-origin: left center; transform: scaleX(0);
+  }
+  .cursore .etichetta {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    font-weight: 800; font-size: 14px; pointer-events: none;
+  }
+  .pollice {
+    position: absolute; top: 4px; left: 4px; width: 44px; height: 44px; border-radius: 50%;
+    background: #1a2744; color: #fff; display: grid; place-items: center;
+    will-change: transform;
+  }
+  [data-tema="avorio"] .pollice { background: #142033; }
+  .azioni {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+  }
+  .pastiglia {
+    flex: 1 1 64px; min-width: 44px; min-height: 64px;
+    border-radius: 16px; background: color-mix(in srgb, var(--ink) 8%, transparent);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    font-size: 12px; font-weight: 800; color: var(--ink);
+  }
+  .pastiglia.prima { background: var(--ink); color: var(--bg); }
+  [data-tema="avorio"] .pastiglia.prima { color: #faf6f0; }
+  .pastiglia svg { width: 20px; height: 20px; }
+  .giorni { display: flex; gap: 6px; overflow: auto; padding-bottom: 8px; margin: 0 -2px 8px; }
+  .giorni button {
+    flex: none; min-height: 44px; padding: 6px 10px; border-radius: 16px;
+    border: 1px solid var(--line); background: var(--vetro); text-align: left;
+  }
+  .giorni button[aria-current="true"] { background: var(--ink); color: var(--bg); }
+  [data-tema="avorio"] .giorni button[aria-current="true"] { color: #faf6f0; }
+  .giorni small, .giorni b { display: block; }
+  .giorni b { font-family: var(--num); font-size: 16px; }
+  .giorni small { font-size: 12px; font-weight: 700; color: inherit; }
+  .giorno-h {
+    position: sticky; top: 0; z-index: 2;
+    display: flex; gap: 10px; align-items: center;
+    padding: 8px 4px; margin: 0 0 8px;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+  }
+  .num {
+    width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center;
+    background: var(--ink); color: var(--bg); font-family: var(--num); font-weight: 650; font-size: 18px;
+  }
+  [data-tema="avorio"] .num { color: #faf6f0; }
+  .giorno-h p { margin: 0; }
+  .giorno-h p b { display: block; }
+  .giorno-h p span { color: var(--ink-2); font-size: 13px; font-weight: 700; }
+  .voce { padding: 10px; margin: 0 0 10px; position: relative; overflow: hidden; }
+  .capsula {
+    width: 64px; min-height: 48px; border-radius: 16px; flex: none;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: color-mix(in srgb, var(--ink) 8%, transparent);
+    font-family: var(--num); font-weight: 650;
+  }
+  .riga { display: flex; gap: 10px; align-items: flex-start; width: 100%; text-align: left; }
+  .corpo { min-width: 0; flex: 1; }
+  .corpo strong, .titolo { display: block; font-size: 15px; }
+  .adesso-riga {
+    display: flex; align-items: center; gap: 8px; color: var(--amber-ink);
+    font-weight: 800; margin: 4px 0 10px;
+  }
+  .adesso-riga i { flex: 1; height: 2px; background: var(--amber); display: block; }
+  .lama::before {
+    content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: #e23b3b;
+  }
+  .lama::after {
+    content: ""; position: absolute; top: 0; bottom: 0; width: 30%; left: 0;
+    background: linear-gradient(90deg, transparent, rgba(226, 59, 59, 0.35), transparent);
+    animation: sweep 12s linear infinite; pointer-events: none;
+  }
+  @keyframes sweep { from { transform: translateX(-120%); } to { transform: translateX(420%); } }
+  .mini { display: flex; gap: 6px; margin-top: 8px; }
+  .mini button {
+    width: 48px; height: 48px; border-radius: 12px; background: #d7c4a1; color: #3a2a08; font-size: 11px; font-weight: 800;
+  }
+  .barra { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 8px; }
+  .parola-btn { min-height: 44px; font-weight: 800; font-size: 14px; color: var(--ok); }
+  .parola-btn.quiet { color: var(--ink-2); }
+  .tessere { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tessera {
+    text-align: left; min-height: 88px; padding: 10px; border-radius: 16px;
+    background: color-mix(in srgb, var(--ink) 6%, transparent); color: var(--ink);
+  }
+  .tessera.larga { grid-column: 1 / -1; }
+  .tessera b { display: block; font-size: 14px; }
+  .tessera span { color: var(--ink-2); font-size: 13px; font-weight: 650; }
+  .banco { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .banco a, .banco button {
+    min-height: 76px; border-radius: 16px; background: color-mix(in srgb, var(--ink) 6%, transparent);
+    display: flex; flex-direction: column; justify-content: center; padding: 8px; color: inherit; text-decoration: none;
+  }
+  .banco b { font-family: var(--num); font-size: 28px; }
+  .banco span { color: var(--ink-2); font-size: 12px; font-weight: 800; }
+  .prog {
+    height: 8px; border-radius: 99px; background: color-mix(in srgb, var(--ink) 10%, transparent); margin: 8px 0;
+  }
+  .prog i { display: block; height: 100%; border-radius: inherit; background: var(--ink-2); width: 0; }
+  .btn {
+    min-height: 48px; padding: 0 14px; border-radius: 14px; font-weight: 800;
+    background: var(--ink); color: var(--bg);
+  }
+  [data-tema="avorio"] .btn { color: #faf6f0; }
+  .btn.sec { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .riga-passo { display: flex; gap: 8px; align-items: center; width: 100%; min-height: 48px; text-align: left; }
+  .spark { width: 100%; height: 54px; }
+  .mesi { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; text-align: center; color: var(--ink-2); font-size: 12px; font-weight: 700; }
+  .dock::before {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 22px;
+    background: linear-gradient(transparent, var(--bg)); pointer-events: none;
+  }
+  .dock {
+    position: fixed; left: 50%; bottom: 0; transform: translateX(-50%);
+    width: min(480px, 100%);
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: end;
+    background: var(--dock);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--line);
+    z-index: 6;
+  }
+  [data-stile="espressiva"] .dock { background: var(--vetro-2); backdrop-filter: none; }
+  .dock-lato { display: flex; gap: 4px; }
+  .dock-lato.dx { justify-content: flex-end; }
+  .anna {
+    width: 64px; height: 64px; border-radius: 50%; margin-bottom: 6px;
+    background: radial-gradient(circle at 30% 30%, #fff6d8, #e8a23a 45%, #1d4e9f 80%);
+    color: #10203a; font-family: var(--serif); font-size: 28px; font-weight: 650;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+  .overlay {
+    position: fixed; inset: 0; z-index: 20;
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .backdrop { position: absolute; inset: 0; background: rgba(6, 10, 18, 0.46); }
+  .sheet {
+    position: relative; z-index: 1;
+    width: min(480px, 100%); max-height: min(92dvh, 760px); overflow: auto;
+    background: var(--bg-2); color: var(--ink);
+    border-radius: 28px 28px 0 0; padding: 10px 16px calc(18px + env(safe-area-inset-bottom));
+    box-shadow: var(--ombra);
+  }
+  .sheet header { display: flex; align-items: center; gap: 8px; }
+  .sheet h2 { font-family: var(--serif); font-weight: 560; font-size: 1.6rem; margin: 8px 0; }
+  .grab { width: 44px; height: 5px; border-radius: 99px; background: var(--line); margin: 4px auto 8px; }
+  .lista button, .lista a {
+    width: 100%; min-height: 52px; text-align: left; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    font-weight: 750; text-decoration: none; color: inherit;
+  }
+  textarea {
+    width: 100%; min-height: 96px; border-radius: 16px; padding: 12px;
+    border: 1px solid var(--line); background: var(--vetro); font-size: 16px;
+  }
+  .toast {
+    position: fixed; left: 50%; bottom: calc(var(--dock-h) + env(safe-area-inset-bottom) + 8px);
+    transform: translateX(-50%); z-index: 30; width: min(440px, calc(100% - 24px));
+    background: var(--ink); color: var(--bg); border-radius: 16px; padding: 12px 14px;
+    display: flex; gap: 8px; align-items: center; font-weight: 750;
+  }
+  [data-tema="avorio"] .toast { color: #faf6f0; }
+  .menu {
+    position: fixed; inset: 0; z-index: 25; display: flex;
+  }
+  .menu aside {
+    width: min(340px, 88vw); height: 100%; overflow: auto;
+    background: #0d1728; color: #f4f7fb; padding: calc(12px + env(safe-area-inset-top)) 16px 24px;
+  }
+  .menu .buio { color: #d5deea; }
+  .menu h3 { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #c5d2e2; }
+  .menu button.voce-nav {
+    width: 100%; min-height: 48px; display: flex; align-items: center; gap: 8px;
+    color: #f4f7fb; font-weight: 700; border-radius: 12px; padding: 0 8px;
+  }
+  .menu button[aria-current="page"] { background: rgba(255, 255, 255, 0.08); }
+  .mappa { margin-top: 18px; }
+  .mappa summary { min-height: 48px; font-weight: 800; cursor: pointer; }
+  .mappa table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .mappa th, .mappa td { text-align: left; vertical-align: top; padding: 8px 6px; border-bottom: 1px solid var(--line); word-break: break-word; }
+  .mappa th { color: var(--ink-2); font-size: 12px; }
+  .skel {
+    height: 14px; border-radius: 8px; margin: 8px 0;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ink) 16%, transparent), transparent);
+    background-size: 200% 100%; animation: sheen 1.1s linear infinite;
+  }
+  .skel.lg { height: 92px; }
+  @keyframes sheen { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+  @media (max-height: 720px) {
+    h1.saluto { font-size: 1.7rem; margin: 2px 0 4px; }
+    .lede { margin-bottom: 8px; }
+    .nota-prova { margin-bottom: 6px; }
+    .chip { min-height: 32px; font-size: 12px; }
+    .proto { gap: 4px; padding-bottom: 4px; }
+    .striscia { margin-bottom: 8px; padding: 6px 10px; }
+    .recap { padding: 8px 10px; }
+    .anello { width: 64px; height: 64px; }
+  }
+  @media (max-width: 359px) {
+    h1.saluto { font-size: 1.85rem; }
+    .pastiglia { font-size: 11px; }
+  }
+</style>
+</head>
+<body data-tema="notte" data-stile="vetro" data-vista="cantiere" data-offline="false">
+<div class="app">
+  <header class="header" id="header">
+    <div class="mark" aria-hidden="true">A</div>
+    <div class="quando">
+      <b id="data-breve">oggi</b>
+      <span id="ora-header">00:00</span>
+    </div>
+    <button class="icona" data-act="fic" aria-label="Sincronizzazione">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 18h10a4 4 0 0 0 0-8 6 6 0 0 0-11.5-2A4.5 4.5 0 0 0 7 18z"/></svg>
+    </button>
+    <button class="icona" data-act="campanella" aria-label="Notifiche, 2 nuove">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2H4.5L6 16z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+      <i class="badge">2</i>
+    </button>
+    <button class="icona" data-act="tema-toggle" id="tema-toggle" aria-label="Passa al tema Avorio">
+      <svg id="icona-tema" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+    </button>
+  </header>
+  <div class="proto" role="toolbar" aria-label="Aspetto del prototipo">
+    <button class="chip" data-act="stile" data-val="vetro" aria-pressed="true" aria-label="Stile Vetro profondo">Vetro</button>
+    <button class="chip" data-act="stile" data-val="espressiva" aria-pressed="false" aria-label="Stile Espressiva Material 3">Espressiva</button>
+    <button class="chip" data-act="tema" data-val="notte" aria-pressed="true" aria-label="Tema Notte d'acciaio">Notte</button>
+    <button class="chip" data-act="tema" data-val="avorio" aria-pressed="false" aria-label="Tema Avorio">Avorio</button>
+    <button class="chip" data-act="vista" data-val="cantiere" aria-pressed="true">Cantiere</button>
+    <button class="chip" data-act="vista" data-val="bottega" aria-pressed="false">Bottega</button>
+  </div>
+  <main id="main">
+    <div class="pull" id="pull"><span id="pull-label">Tira per aggiornare</span></div>
+    <div id="stage"></div>
+    <details class="mappa carta" id="mappa">
+      <summary>Mappa: funzione attuale, dove sta qui</summary>
+      <p class="desc">Confronto con la home dell'app (Inizio, branch main). Nomi, telefoni e paesi di questa pagina sono inventati. Paese Esempio non esiste.</p>
+      <table>
+        <thead><tr><th>Funzione attuale</th><th>Dove sta nella nuova home</th></tr></thead>
+        <tbody id="mappa-body"></tbody>
+      </table>
+    </details>
+  </main>
+  <nav class="dock" aria-label="Dock">
+    <div class="dock-lato">
+      <button class="icona" data-act="cerca" aria-label="Cerca">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6"/><path d="M16 16l4 4"/></svg>
+      </button>
+      <button class="icona" data-act="mic" aria-label="Detta ad Anna">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4"/></svg>
+      </button>
+    </div>
+    <button class="anna" data-act="anna" aria-label="Apri Anna">A</button>
+    <div class="dock-lato dx">
+      <button class="icona" data-act="fab" aria-label="Apri azioni rapide" style="background:var(--amber-2);color:#3a2a08;border-radius:18px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9h3l2-3h6l2 3h3v10H4z"/><circle cx="12" cy="13" r="3"/></svg>
+      </button>
+      <button class="icona" data-act="menu" aria-label="Apri il menu dei moduli">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</div>
+<div id="overlay"></div>
+<div id="toast" hidden></div>
+<script>
+(function () {
+  const ridotto = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SOGLIA = 0.82;
+  const SWIPE_APERTO = -108;
+  const SWIPE_SOGLIA = -72;
+  const SWIPE_MIN = -120;
+
+  const MAPPA = [
+    ['Testata del telefono: marchio, data e ora', 'In alto, resta ferma mentre scorri'],
+    ['Tema chiaro e scuro, anche Sistema in Impostazioni', 'Sole e luna, e i chip Notte d\'acciaio e Avorio'],
+    ['Campanella notifiche', 'Icona in testata, apre due avvisi di esempio'],
+    ['Spia di sincronizzazione', 'Nuvola in testata'],
+    ['Stato rete: Connesso oppure Offline', 'Pillola a destra della data, si tocca'],
+    ['Banner offline, ultimo dato noto', 'Compare sotto il saluto se la rete è spenta'],
+    ['Avviso per togliere la verifica in due passaggi, con Annulla', 'Pulsante in fondo a questa mappa'],
+    ['Striscia di un passaggio da chiudere', 'Sotto il saluto, porta alle azioni suggerite'],
+    ['Occhiello con la data di oggi', 'Riga in maiuscolo sopra il saluto'],
+    ['Saluto: Buongiorno, Buon pomeriggio, Buonasera, più il nome', 'Titolo grande. Di notte non dice di andare a dormire'],
+    ['Voce di Anna: quanti impegni restano, e il prossimo se la giornata è vuota', 'Frase sotto il saluto'],
+    ['Giornata risolta, chiudibile. In app la sera, sotto il saluto, solo per chi vede la cassa', 'Carta verde dopo il prossimo impegno, così su un telefono basso non finisce sotto la dock. Qui è accesa per la prova'],
+    ['Lastra del prossimo impegno: fase, tempo che manca, ora, cliente, lavoro, luogo, squadra', 'Prima carta grande del lavoro'],
+    ['Urgente, con la lama rossa', 'Su un impegno del programma'],
+    ['Chiamare prima, se il cliente l\'ha chiesto', 'Fascia rossa sulla lastra. La cornetta diventa la prima azione'],
+    ['Da confermare dal cliente, anello ambra che pulsa', 'Sulla lastra e sulle righe ancora in attesa'],
+    ['Scorri per confermare, pista gialla, molla, conferma oltre l\'82%', 'Sulla lastra e sulla riga di domani. Invio e frecce funzionano'],
+    ['Scorri a sinistra per Chiedi, su WhatsApp', 'Sulla stessa carta. Il tasto verde si scopre'],
+    ['Apri scheda, Chiama, Naviga, WhatsApp', 'Quattro tasti sotto la lastra'],
+    ['Email sulle righe del programma, non sulla lastra', 'Sotto le righe non concluse'],
+    ['Se ci sono più numeri, si sceglie quale chiamare', 'Tocca Chiama sulla lastra'],
+    ['Naviga: Google Maps, Mappe, Waze. Se manca il paese, lo chiede', 'Tocca Naviga. Su un impegno di dopodomani chiede il paese'],
+    ['WhatsApp non parte da solo: promemoria, conferma, sto arrivando, ritardo, testo libero', 'Tocca WhatsApp'],
+    ['Scheda in lettura: allegati, modifica, sposta, completa, riapri, elimina', 'Tocca la riga oppure Apri scheda'],
+    ['Riattiva le notifiche su questo dispositivo', 'Carta sopra Primi passi'],
+    ['Primi passi: un passo in evidenza, Dillo ad Anna, salta, più tardi, elenco, non mostrare più', 'Carta Primi passi. Il passo veicolo resta nascosto finché la guida è aperta, come in app'],
+    ['Impegni non ancora gestiti: ieri, Completato, Gestisci, allegati. Parola di attesa senza cursore', 'Sezione prima del programma'],
+    ['Il programma, con il salto ad Agenda', 'Carta omonima. Agenda avvisa che la pagina non è in questo prototipo'],
+    ['Testata del giorno che resta ferma, conteggio, quanti da confermare', 'Dentro il programma. I chip dei giorni ci saltano'],
+    ['Segno Adesso nel flusso', 'Riga con l\'ora e il filo ambra'],
+    ['Promemoria, fatto, orario da fissare, squadra, indirizzo breve', 'Righe del programma'],
+    ['Richiesta WhatsApp letta da Anna, anche urgente', 'Riga con il marchio di Anna'],
+    ['Suggerimento di Anna, si ignora, e Al chiuso se è un rischio meteo', 'Righe Meteo e Percorsi'],
+    ['Meteo: in home non c\'è una tessera fissa. L\'avviso sta nel programma e la voce nel menu', 'Suggerimento Pioggia, e Meteo nel menu'],
+    ['Mezzi: scadenze e costi trasferta. Non c\'è un indicatore del carburante', 'Suggerimento Percorsi. I costi del mezzo compaiono solo dopo Non mostrare più, come in app'],
+    ['Programma vuoto, errore con Riprova, attesa', 'Tre pulsanti in fondo a questa mappa. Sul telefono, in app, lo scheletro del programma non si vede: qui sì, quando aggiorni'],
+    ['Da tenere d\'occhio: riparazioni, preventivi degli ultimi 30 giorni, cassa con i centesimi', 'Tre tessere. La cassa sta solo per chi gestisce i conti: qui è visibile'],
+    ['Azioni suggerite, Segna come fatto', 'Carta sotto le tessere'],
+    ['Nota di Anna: la richiesta è già scritta, Apri non invia da solo', 'Carta in fondo al lavoro, e il tasto A della dock'],
+    ['Il tuo andamento, sei mesi, storico importato a parte. In app è spento finché non lo accendi', 'Ultima carta. Qui è accesa per la prova'],
+    ['Home Bottega: banco per fase, pronte da ritirare, Avvisa, STOP WhatsApp, richieste, ferme', 'Chip Bottega'],
+    ['Dock del telefono in home: cerca, microfono, Anna, fotocamera, menu. Il più Nuovo impegno sta nella ricerca e nel foglio della fotocamera', 'Barra in basso. La fotocamera apre il foglio'],
+    ['Menu dei moduli, tre sezioni, workspace, pannello scuro anche di giorno', 'Tasto menu'],
+    ['Aggiornamento: in app al minuto e con Riprova. Qui si tira dall\'alto', 'In cima all\'elenco'],
+    ['Conferma annullabile', 'Dopo lo scorrimento, il riquadro in basso ha Annulla']
+  ];
+
+  const NAV = {
+    'Operatività': ['Inizio', 'Agenda', 'Riparazioni', 'Creazioni', 'Rete', 'Percorsi', 'Meteo', 'Appunti e note'],
+    'Clienti e vendita': ['Clienti', 'WhatsApp Business', 'Preventivi', 'Fatture', 'Pagamenti', 'Assicurazioni', 'Tutela Legale', 'Catalogo', 'Documenti e foto'],
+    'Sistema': ['Squadra', 'Impostazioni', 'Guida']
+  };
+
+  const state = {
+    confirmed: {},
+    ignored: {},
+    done: {},
+    recap: true,
+    primi: true,
+    primiLista: false,
+    saltati: {},
+    notifiche: true,
+    continuation: true,
+    azioni: true,
+    nota: true,
+    twofa: false,
+    offline: false,
+    programma: 'dati',
+    sheet: null,
+    menu: false,
+    toast: null,
+    optOut: false,
+    giorno: 'oggi',
+    loading: false
+  };
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  function svg(d) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">' + d + '</svg>';
+  }
+  const ic = {
+    pin: svg('<path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2"/>'),
+    users: svg('<path d="M16 20v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1"/><circle cx="9.5" cy="8" r="3"/><path d="M17 11a3 3 0 0 1 0-6M21 20v-1a3.5 3.5 0 0 0-2.5-3.3"/>'),
+    phone: svg('<path d="M7 3h4l1 4-2 1a12 12 0 0 0 6 6l1-2 4 1v4a2 2 0 0 1-2 2A16 16 0 0 1 5 5a2 2 0 0 1 2-2z"/>'),
+    wa: svg('<path d="M5 19l1.2-3.4A8 8 0 1 1 8.4 18L5 19z"/><path d="M9 10c.2 2 2 3.5 4 4"/>'),
+    mail: svg('<path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/>'),
+    clip: svg('<path d="M8 7h8v12H8z"/><path d="M10 7V5h4v2"/>'),
+    arrow: svg('<path d="M5 12h14M13 6l6 6-6 6"/>'),
+    check: svg('<path d="M5 12l5 5L20 7"/>'),
+    x: svg('<path d="M6 6l12 12M18 6L6 18"/>')
+  };
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function hm(d) { return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+  function iso(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function stessoGiorno(a, b) { return iso(a) === iso(b); }
+  function saluto(d) {
+    const h = d.getHours();
+    if (h >= 5 && h < 12) return 'Buongiorno';
+    if (h >= 12 && h < 18) return 'Buon pomeriggio';
+    return 'Buonasera';
+  }
+  function occhiello(d) {
+    return d.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' }).toLocaleUpperCase('it-IT');
+  }
+  function tra(min) {
+    if (min < 60) return min + ' min';
+    const h = Math.floor(min / 60), m = min % 60;
+    return m ? h + ' h ' + m + ' min' : h + ' h';
+  }
+  function passoMolla(x, dest, v, stiff, damp, riposo) {
+    if (ridotto()) return { x: dest, v: 0, fermo: true };
+    const nv = (v + (dest - x) * stiff) * damp;
+    const n = x + nv;
+    if (Math.abs(dest - n) < riposo && Math.abs(nv) < riposo) return { x: dest, v: 0, fermo: true };
+    return { x: n, v: nv, fermo: false };
+  }
+
+  function mondo(now) {
+    const next = new Date(now.getTime() + 25 * 60000);
+    const past = new Date(now.getTime() - 100 * 60000);
+    const late = new Date(now.getTime() + 140 * 60000);
+    const memo = new Date(now.getTime() + 200 * 60000);
+    const ieri = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1, 16, 40);
+    const domani = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 9, 30);
+    const dopo = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2, 11, 0);
+    const fatto = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 15);
+    return { now, next, past, late, memo, ieri, domani, dopo, fatto };
+  }
+
+  function fase(min) {
+    if (min <= 0) return 'Adesso';
+    if (min <= 30) return 'Tra poco';
+    return 'Prossimo impegno';
+  }
+
+  function lede(m) {
+    const futuriOggi = [m.next, m.late].filter((d) => stessoGiorno(d, m.now) && d > m.now).length;
+    const memoOggi = stessoGiorno(m.memo, m.now) && m.memo > m.now ? 1 : 0;
+    if (futuriOggi > 0) {
+      const resta = futuriOggi === 1 ? 'ti resta 1 appuntamento' : 'ti restano ' + futuriOggi + ' appuntamenti';
+      const coda = memoOggi ? ' e 1 promemoria' : '';
+      return '<b>' + esc(resta.charAt(0).toUpperCase() + resta.slice(1) + ' oggi' + coda) + '.</b>';
+    }
+    return '<b>Per oggi gli appuntamenti sono conclusi.</b> <em>Domani alle 09:30 hai un appuntamento con Neri Studio per la vetrina.</em>';
+  }
+
+  function capsula(ora, extra) {
+    return '<span class="capsula">' + (ora ? '<b>' + esc(ora) + '</b>' : ic.clip) + (extra || '') + '</span>';
+  }
+
+  function pastiglie(id, opts) {
+    const mostraApri = opts.apri !== false;
+    let h = '';
+    if (mostraApri && !opts.call) h += '<button class="pastiglia prima" data-act="scheda" data-id="' + id + '">' + ic.clip + 'Apri scheda</button>';
+    if (opts.phone) h += '<button class="pastiglia' + (opts.call ? ' prima' : '') + '" data-act="chiama" data-id="' + id + '">' + ic.phone + 'Chiama</button>';
+    if (mostraApri && opts.call) h += '<button class="pastiglia" data-act="scheda" data-id="' + id + '">' + ic.clip + 'Apri scheda</button>';
+    if (opts.nav) h += '<button class="pastiglia" data-act="naviga" data-id="' + id + '">' + ic.pin + 'Naviga</button>';
+    if (opts.phone) h += '<button class="pastiglia" data-act="whatsapp" data-id="' + id + '">' + ic.wa + 'WhatsApp</button>';
+    if (opts.mail) h += '<button class="pastiglia" data-act="email" data-id="' + id + '">' + ic.mail + 'Email</button>';
+    return '<div class="azioni">' + h + '</div>';
+  }
+
+  function bloccoAttesa(id, dentro, conGesto) {
+    if (!conGesto || state.confirmed[id]) return dentro;
+    return '<div class="scorri" data-swipe="' + id + '">' +
+      '<button class="chiedi" data-act="chiedi" data-id="' + id + '" aria-label="Chiedi conferma">' + ic.wa + 'Chiedi</button>' +
+      '<div class="faccia" data-face="' + id + '">' + dentro + '</div></div>';
+  }
+
+  function cursore(id) {
+    if (state.confirmed[id]) return '';
+    return '<div class="cursore" data-cursore="' + id + '" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Scorri per confermare" aria-label="Scorri per confermare">' +
+      '<div class="fill"></div><div class="etichetta">Scorri per confermare</div><div class="pollice">' + ic.arrow + '</div></div>' +
+      '<span class="sr">Invio, spazio o le frecce. Oltre l\'ottantadue per cento conferma.</span>';
+  }
+
+  function voceProgramma(v) {
+    if (v.kind === 'now') {
+      return '<div class="adesso-riga"><b>' + esc(v.ora) + '</b><span>Adesso</span><i></i></div>';
+    }
+    if (v.kind === 'wa') {
+      return '<article class="voce"><button class="riga" data-act="wa-riga"><span class="capsula">A</span><span class="corpo"><small style="font-weight:800;color:var(--ink-2)">Anna ha letto una richiesta WhatsApp</small><strong>Toni B.</strong><span class="desc">«La serranda non sale»</span><span class="pill">urgente</span></span></button></article>';
+    }
+    if (v.kind === 'sug') {
+      if (state.ignored[v.id]) return '';
+      return '<article class="voce"><div class="riga"><span class="capsula">A</span><span class="corpo"><small style="font-weight:800">Anna · ' + esc(v.src) + '</small><strong class="titolo">' + esc(v.titolo) + '</strong><span class="desc">' + esc(v.testo) + '</span><span class="barra"><button class="parola-btn" data-act="vai" data-dove="' + esc(v.dove) + '">' + esc(v.azione) + '</button>' +
+        (v.chiuso ? '<button class="parola-btn quiet" data-act="chiuso" data-id="' + v.id + '">Al chiuso</button>' : '') +
+        '</span></span><button class="icona" data-act="ignora" data-id="' + v.id + '" aria-label="Ignora suggerimento">' + ic.x + '</button></div></article>';
+    }
+    const id = v.id;
+    const conf = state.confirmed[id];
+    const fatto = state.done[id] || v.fatto;
+    const attesa = v.pending && !conf && !fatto;
+    const gesto = attesa && v.gesto;
+    const classe = 'voce' + (v.urgente && !fatto ? ' lama' : '');
+    let corpo = '<span class="corpo"><strong>' + esc(v.titolo) + '</strong>';
+    if (v.per) corpo += '<span class="desc">Per ' + esc(v.per) + '</span>';
+    if (v.desc) corpo += '<span class="desc">' + esc(v.desc) + '</span>';
+    if (v.dove) corpo += '<span class="luogo">' + ic.pin + ' ' + esc(v.dove) + '</span>';
+    if (v.squadra) corpo += '<span class="squadra">' + ic.users + ' ' + esc(v.squadra) + '</span>';
+    corpo += '<span class="barra">';
+    if (fatto) corpo += '<span class="pill verde">completato</span>';
+    else if (v.urgente) corpo += '<span class="pill">urgente</span>';
+    else if (v.passato && !v.memo) corpo += '<span class="pill ambra">da confermare</span>';
+    else if (v.memo) corpo += '<span class="pill ambra">promemoria</span>';
+    else if (v.focus) corpo += '<span class="pill blu">prossimo</span>';
+    if (!v.ora) corpo += '<span class="pill blu">orario da fissare</span>';
+    if (v.call) corpo += '<span class="pill">Chiamare prima</span>';
+    corpo += '</span></span>';
+    const riga = '<div class="riga">' + capsula(v.ora, v.memo ? '<small>memo</small>' : (fatto ? '<small>ok</small>' : '')) + corpo + '</div>';
+    const apri = v.passato
+      ? riga
+      : '<button class="riga" data-act="scheda" data-id="' + id + '">' + riga.replace('<div class="riga">', '').replace(/<\/div>$/, '') + '</button>';
+    let extra = '';
+    if (v.allegati) {
+      extra += '<div class="mini"><button data-act="allegato" data-id="' + id + '" data-i="0">Foto</button><button data-act="allegato" data-id="' + id + '" data-i="1">PDF</button></div>';
+    }
+    if (gesto) extra += cursore(id);
+    if (!fatto && !v.memo) extra += pastiglie(id, { phone: true, nav: true, call: v.call, mail: true, apri: false });
+    if (v.passato && !fatto) {
+      extra += '<div class="barra"><button class="parola-btn" data-act="completato" data-id="' + id + '">Completato</button><button class="parola-btn quiet" data-act="scheda" data-id="' + id + '">Gestisci</button></div>';
+    }
+    const parola = attesa ? '<p class="parola">Da confermare dal cliente</p>' : '';
+    const interno = parola + (gesto ? bloccoAttesa(id, apri, true) : apri) + extra;
+    return '<article class="' + classe + '" id="voce-' + id + '">' + interno + '</article>';
+  }
+
+  function programma(m) {
+    if (state.programma === 'errore') {
+      return '<section class="carta"><div class="testa-sez"><h2>Il programma</h2></div><p><b>Il programma non è arrivato</b></p><p class="desc">Non sono riuscito a caricare gli impegni dei prossimi giorni.</p><button class="btn" data-act="riprova">Riprova</button></section>';
+    }
+    if (state.programma === 'vuoto') {
+      return '<section class="carta"><div class="testa-sez"><h2>Il programma</h2><button class="link" data-act="vai" data-dove="Agenda">Agenda</button></div><p><b>Nessun impegno nelle prossime tre settimane</b></p><p class="desc">Quando ne fissi uno, compare qui con le sue azioni rapide.</p></section>';
+    }
+    if (state.programma === 'scheletro' || state.loading) {
+      return '<section class="carta" aria-busy="true"><div class="testa-sez"><h2>Il programma</h2></div><div class="skel lg"></div><div class="skel"></div><div class="skel"></div></section>';
+    }
+    const oggiVoci = [];
+    if (stessoGiorno(m.fatto, m.now)) {
+      oggiVoci.push({ id: 'fatto', kind: 'app', ora: hm(m.fatto), titolo: 'Casa Blu', desc: 'Sostituire il sifone', dove: 'Vicolo Corto 8, Paese Esempio', fatto: true, squadra: 'Marco e Lea' });
+    }
+    if (stessoGiorno(m.past, m.now) && m.past < m.now) {
+      oggiVoci.push({ id: 'passato', kind: 'app', ora: hm(m.past), titolo: 'Porta del laboratorio', per: 'Neri Studio', desc: 'Registrare la misura', dove: 'Piazza dei Tigli 4, Borgo Esempio', passato: true, pending: true });
+    }
+    oggiVoci.push({ kind: 'now', ora: hm(m.now) });
+    oggiVoci.push({ kind: 'wa' });
+    if (!state.ignored.meteo) {
+      oggiVoci.push({ kind: 'sug', id: 'meteo', src: 'Meteo', titolo: 'Pioggia sul sopralluogo', testo: 'A Paese Esempio è prevista pioggia leggera nel pomeriggio. Se il lavoro è al chiuso, segna l\'impegno.', azione: 'Controlla meteo', dove: 'Meteo', chiuso: true });
+    }
+    if (!state.ignored.mezzo) {
+      oggiVoci.push({ kind: 'sug', id: 'mezzo', src: 'Percorsi', titolo: 'Assicurazione del furgone in scadenza', testo: 'Furgone Esempio, targa EE 000 EE. Assicurazione in scadenza il 02/12/2026. Oggi la stima è di circa 18 km, 25 minuti di percorrenza. Il carburante non ha un suo indicatore in home.', azione: 'Apri percorsi', dove: 'Percorsi' });
+    }
+    if (!state.primi && !state.ignored.costi) {
+      oggiVoci.push({ kind: 'sug', id: 'costi', src: 'Impostazioni', titolo: 'Mezzo aziendale non configurato', testo: 'Anna non può stimare bene i costi trasferta finché il veicolo non è completo.', azione: 'Completa impostazioni', dove: 'Impostazioni' });
+    }
+    const nextOggi = stessoGiorno(m.next, m.now);
+    if (nextOggi) {
+      oggiVoci.push({ id: 'next', kind: 'app', ora: hm(m.next), titolo: 'Lara Vento', desc: 'Controllo caldaia e termosifoni', dove: 'Via delle Ombre 12, Paese Esempio', squadra: 'Solo Marco', focus: true, pending: true, gesto: false, call: true });
+    }
+    if (stessoGiorno(m.late, m.now)) {
+      oggiVoci.push({ id: 'tardi', kind: 'app', ora: hm(m.late), titolo: 'Serranda di Toni', desc: 'La serranda non sale', dove: 'Contrada Esempio 3, Borgo Esempio', urgente: true });
+    }
+    if (stessoGiorno(m.memo, m.now)) {
+      oggiVoci.push({ id: 'memo', kind: 'app', ora: hm(m.memo), titolo: 'Richiamare per il pezzo', per: 'Casa Blu', memo: true });
+    }
+    oggiVoci.push({ id: 'senza', kind: 'app', ora: '', titolo: 'Consegna chiavi', desc: 'Passare in bottega', dove: 'Bottega Esempio' });
+
+    const domaniVoci = [{
+      id: 'domani', kind: 'app', ora: '09:30', titolo: 'Neri Studio', desc: 'Vetrina nuova', dove: 'Piazza dei Tigli 4, Borgo Esempio', pending: true, gesto: true
+    }];
+    const dopoVoci = [{
+      id: 'dopo', kind: 'app', ora: '11:00', titolo: 'Lara Vento', desc: 'Seconda uscita', dove: 'Via Lunga 5', senzaPaese: true
+    }];
+
+    function giorno(id, etichetta, quando, isoG, num, voci, conteggio) {
+      return '<section id="giorno-' + id + '"><h3 class="giorno-h"><span class="num">' + num + '</span><p><b>' + esc(etichetta) + '</b><span>' + esc(quando) + ' · ' + esc(conteggio) + '</span></p></h3>' + voci.map(voceProgramma).join('') + '</section>';
+    }
+    const nOggi = oggiVoci.filter((v) => v.kind === 'app' && !v.memo).length;
+    const nMemo = oggiVoci.filter((v) => v.memo).length;
+    const html = '<section class="carta" id="programma"><div class="testa-sez"><h2 id="home-programma-titolo">Il programma</h2><button class="link" data-act="vai" data-dove="Agenda">Agenda</button></div>' +
+      '<div class="giorni" aria-label="Cambia giorno">' +
+      chipGiorno('oggi', m.now, 'Oggi') + chipGiorno('domani', m.domani, 'Domani') + chipGiorno('dopo', m.dopo, 'Dopodomani') +
+      '</div>' +
+      giorno('oggi', 'Oggi', m.now.toLocaleDateString('it-IT', { weekday: 'long' }), iso(m.now), m.now.getDate(), oggiVoci, nOggi + ' interventi' + (nMemo ? ' · ' + nMemo + ' memo' : '') + ' · 1 da confermare') +
+      giorno('domani', 'Domani', m.domani.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'short' }), iso(m.domani), m.domani.getDate(), domaniVoci, '1 intervento · 1 da confermare') +
+      giorno('dopo', m.dopo.toLocaleDateString('it-IT', { weekday: 'long' }), m.dopo.toLocaleDateString('it-IT', { day: 'numeric', month: 'short' }), iso(m.dopo), m.dopo.getDate(), dopoVoci, '1 intervento') +
+      '</section>';
+    return html;
+  }
+
+  function chipGiorno(id, data, nome) {
+    const on = state.giorno === id ? ' aria-current="true"' : '';
+    return '<button data-act="giorno" data-val="' + id + '"' + on + '><b>' + data.getDate() + '</b><small>' + esc(nome) + '</small></button>';
+  }
+
+  function lastra(m) {
+    if (state.loading) {
+      return '<section class="lastra" aria-busy="true"><p>Cerco il prossimo impegno…</p><div class="skel"></div><div class="skel"></div></section>';
+    }
+    const id = 'next';
+    const min = Math.max(0, Math.round((m.next - m.now) / 60000));
+    const conf = state.confirmed[id];
+    const ora = hm(m.next);
+    const anello = conf
+      ? '<b style="font-family:var(--num);font-size:28px">' + esc(ora) + '</b>'
+      : '<span class="anello"><i></i><b></b>' + esc(ora) + '</span>';
+    const ident = '<div class="identita"><h2 class="nome">' + anello + '<span>Lara Vento</span></h2><p class="desc">Controllo caldaia e termosifoni</p><p class="luogo">' + ic.pin + ' Via delle Ombre 12, Paese Esempio</p><p class="squadra">' + ic.users + ' Solo Marco</p></div>';
+    return '<section class="lastra" aria-label="Prossimo impegno" id="lastra">' +
+      '<div class="fase">' + ic.clip + ' ' + esc(fase(min)) + '<span class="tra">tra ' + esc(tra(min)) + '</span></div>' +
+      (conf ? '' : '<p class="parola">Da confermare dal cliente</p>') +
+      (conf ? ident : bloccoAttesa(id, ident, true)) +
+      '<p class="flag">' + ic.phone + ' Chiamare prima: il cliente l\'ha chiesto</p>' +
+      (conf ? '' : cursore(id)) +
+      pastiglie(id, { phone: true, nav: true, call: true }) +
+      '</section>';
+  }
+
+  function arretrati() {
+    if (state.done.ieri) return '';
+    return '<section class="carta" id="arretrati"><h2>Un impegno non ancora gestito</h2><p class="desc">Erano in agenda nei giorni scorsi ma non risultano completati né spostati.</p>' +
+      '<article class="voce"><p class="parola">Da confermare dal cliente</p><div class="riga">' + capsula('16:40') +
+      '<span class="corpo"><strong>Lara Vento</strong><span class="desc">Perizia della caldaia</span><span class="luogo">Via delle Ombre 12, Paese Esempio</span><span class="pill ambra">ieri</span></span></div>' +
+      '<div class="mini"><button data-act="allegato" data-id="ieri" data-i="0">Perizia</button></div>' +
+      '<div class="barra"><button class="parola-btn" data-act="completato" data-id="ieri">Completato</button><button class="parola-btn quiet" data-act="scheda" data-id="ieri">Gestisci</button></div></article></section>';
+  }
+
+  function primi() {
+    let h = '';
+    if (state.notifiche) {
+      h += '<div class="carta"><button class="link" data-act="riattiva">Riattiva le notifiche su questo dispositivo</button><p class="desc" id="esito-push"></p></div>';
+    }
+    if (!state.primi) return h;
+    const passi = [
+      ['cliente', 'Aggiungi il primo cliente', true],
+      ['agenda', 'Fissa il primo appuntamento', true],
+      ['anna', 'Chiedi ad Anna, anche a voce', false],
+      ['preventivo', 'Prepara un preventivo', false],
+      ['azienda', 'Completa i dati dell\'azienda', false],
+      ['fattura', 'Emetti la prima fattura elettronica', false]
+    ];
+    h += '<section class="carta" id="primi"><div style="display:flex;gap:8px;align-items:flex-start"><div style="flex:1"><h2>Primi passi</h2><p class="desc">2 di 6</p></div><button class="link" data-act="piu-tardi">Più tardi</button></div>' +
+      '<div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="2"><i style="width:33%"></i></div>' +
+      '<h3>Chiedi ad Anna, anche a voce</h3><p class="desc">Scrivi o detta come parleresti al telefono: Anna prepara, tu confermi.</p>' +
+      '<div class="barra"><button class="btn" data-act="anna">Prova con Anna</button><button class="btn sec" data-act="anna">Dillo ad Anna</button><button class="link" data-act="salta">Non ora</button></div>' +
+      '<button class="link" data-act="lista-passi" aria-expanded="' + (state.primiLista ? 'true' : 'false') + '">Tutti i passi</button>';
+    if (state.primiLista) {
+      h += '<ol style="padding:0;list-style:none;margin:8px 0">';
+      passi.forEach((p, i) => {
+        const fatto = p[2] || state.saltati[p[0]] === 'done';
+        const salt = state.saltati[p[0]] === 'skip';
+        h += '<li class="riga-passo"><span class="num" style="width:32px;height:32px;font-size:14px">' + (fatto ? 'ok' : i + 1) + '</span><span style="flex:1">' + esc(p[1]) + (salt ? ' · Saltato' : '') + '</span>' +
+          (salt ? '<button class="link" data-act="riprendi" data-id="' + p[0] + '">Riprendi</button>' : '') + '</li>';
+      });
+      h += '</ol><button class="link" data-act="basta-passi">Non mostrare più</button>';
+    }
+    h += '</section>';
+    return h;
+  }
+
+  function occhio() {
+    return '<section class="carta"><h2>Da tenere d\'occhio</h2><div class="tessere">' +
+      '<button class="tessera" data-act="vai" data-dove="Riparazioni"><b>2 riparazioni pronte al ritiro</b><span>5 aperte in tutto</span></button>' +
+      '<button class="tessera" data-act="vai" data-dove="Preventivi"><b>Preventivi da confermare</b><span>3 in attesa · ultimi 30 giorni</span></button>' +
+      '<button class="tessera larga" data-act="vai" data-dove="Pagamenti"><b>1.234,56 € da riscuotere</b><span>4 fatture · 1 scaduta</span></button>' +
+      '</div></section>';
+  }
+
+  function andamento() {
+    const vals = [40, 55, 48, 70, 66, 90];
+    const pts = vals.map((v, i) => (i * 60) + ',' + (50 - v * 0.45)).join(' ');
+    const mesi = ['giu', 'lug', 'ago', 'set', 'ott', 'nov'];
+    return '<section class="carta"><h2>Il tuo andamento</h2><p class="desc">Questo mese</p><p style="font-family:var(--num);font-size:28px;margin:0">4.280,00 €</p><p class="desc">+640,00 € vs mese scorso</p>' +
+      '<svg class="spark" viewBox="0 0 300 54" aria-label="Fatturato degli ultimi mesi"><polyline fill="none" stroke="currentColor" stroke-width="3" points="' + pts + '"/></svg>' +
+      '<div class="mesi">' + mesi.map((m, i) => '<div><div>' + m + '</div><div>' + (i === 3 ? '2★' : '·') + '</div></div>').join('') + '</div>' +
+      '<p class="desc">Fatturato per mese. Vista d\'andamento sui dati recenti, non un bilancio fiscale.</p>' +
+      '<p class="desc"><b>Storico importato</b> negli stessi mesi: 900,00 € di fatture fatte prima di Artigiano, tenute a parte e non sommate qui sopra.</p></section>';
+  }
+
+  function cantiere(m) {
+    return '<p class="kicker"><strong>' + esc(occhiello(m.now)) + '</strong><button class="rete" data-act="rete"><i class="punto"></i>' + (state.offline ? 'Offline' : 'Connesso') + '</button></p>' +
+      '<h1 class="saluto">' + esc(saluto(m.now)) + ', Marco</h1>' +
+      '<p class="lede">' + lede(m) + '</p>' +
+      (state.offline ? '<div class="striscia">Sei offline. Mostro l\'ultimo dato noto.<button data-act="rete">Ricollega</button></div>' : '') +
+      (state.twofa ? '<div class="striscia" role="alert">Hai chiesto di togliere la verifica in due passaggi.<button data-act="annulla-2fa">Annulla</button></div>' : '') +
+      (state.continuation ? '<div class="striscia">C\'è un promemoria che non è partito.<button data-act="scroll" data-id="azioni">Apri</button></div>' : '') +
+      lastra(m) +
+      (state.recap ? '<section class="recap"><div><p>Giornata risolta</p><h2>2 lavori chiusi, 1 fattura, incasso 480,00 €</h2><p>Artigiano ha lavorato per te: circa 6 minuti di gestione in meno.</p></div><button class="x" data-act="chiudi-recap" aria-label="Chiudi riepilogo di fine giornata">' + ic.x + '</button></section>' : '') +
+      primi() + arretrati() + programma(m) + occhio() +
+      (state.azioni ? '<section class="carta" id="azioni"><h2>Azioni suggerite</h2><p><b>Il promemoria delle 16 non è partito</b></p><p class="desc">Era per Casa Blu. Puoi chiuderlo qui.</p><button class="btn" data-act="segna">Segna come fatto</button></section>' : '') +
+      (state.nota ? '<section class="carta" style="display:flex;gap:8px;align-items:center"><span class="num">A</span><p style="flex:1;margin:0"><b>Prepara il prossimo intervento con Anna.</b></p><button class="link" data-act="anna">Apri</button></section>' : '') +
+      andamento();
+  }
+
+  function bottega() {
+    return '<p class="kicker"><strong>' + esc(occhiello(new Date())) + '</strong><button class="rete" data-act="rete"><i class="punto"></i>' + (state.offline ? 'Offline' : 'Connesso') + '</button></p>' +
+      '<h1 class="saluto">' + esc(saluto(new Date())) + ', Marco</h1>' +
+      '<p class="lede"><b>2 riparazioni pronte da ritirare.</b> 1 richiesta nuova, 1 scheda ferma da troppo.</p>' +
+      (state.recap ? '<section class="recap"><div><p>Giornata risolta</p><h2>1 lavoro chiuso</h2></div><button class="x" data-act="chiudi-recap" aria-label="Chiudi riepilogo di fine giornata">' + ic.x + '</button></section>' : '') +
+      '<section class="carta"><div class="testa-sez"><h2>Il banco</h2><button class="link" data-act="vai" data-dove="Riparazioni">Riparazioni</button></div>' +
+      '<nav class="banco" aria-label="Riparazioni per fase"><button data-act="vai" data-dove="Riparazioni"><span>In attesa</span><b>3</b></button><button data-act="vai" data-dove="Riparazioni"><span>In lavorazione</span><b>2</b></button><button data-act="vai" data-dove="Riparazioni"><span>Da ritirare</span><b>2</b></button></nav></section>' +
+      primi() +
+      '<section class="carta"><div class="testa-sez"><h2>Pronte da ritirare</h2><button class="link" data-act="vai" data-dove="Riparazioni">Vedi tutte</button></div>' +
+      (state.optOut ? '<p class="flag">Silvia Neri ha revocato il consenso WhatsApp (STOP): chiamalo o scrivigli in altro modo.</p>' : '') +
+      '<div class="riga" style="margin-top:8px"><span class="corpo"><strong>Radio Esempio</strong><span class="desc">Non si accende · #104</span></span><button class="btn sec" data-act="avvisa" data-id="ok">Avvisa</button></div>' +
+      '<div class="riga" style="margin-top:8px"><span class="corpo"><strong>Silvia Neri</strong><span class="desc">Lampada · #98</span></span><button class="btn sec" data-act="avvisa" data-id="stop">Avvisa</button></div></section>' +
+      '<section class="carta"><h2>Richieste nuove</h2><button class="riga" data-act="wa-riga"><span class="corpo"><strong>Toni B.</strong><span class="desc">La serranda non sale</span><span class="pill">urgente</span></span><span class="link">Apri</span></button></section>' +
+      '<section class="carta"><div class="testa-sez"><h2>Ferme da troppo</h2><button class="link" data-act="vai" data-dove="Riparazioni">Vedi tutte</button></div><div class="riga"><span class="corpo"><strong>Orologio da parete</strong><span class="desc">Non suona · #81</span></span><button class="btn sec" data-act="vai" data-dove="Riparazioni">Riprendi</button></div></section>' +
+      '<section class="carta"><h2>Da tenere d\'occhio</h2><div class="tessere"><button class="tessera" data-act="vai" data-dove="Preventivi"><b>Preventivi da confermare</b><span>3 in attesa di risposta</span></button><button class="tessera" data-act="vai" data-dove="Agenda"><b>Oggi in agenda</b><span>3 appuntamenti</span></button></div></section>' +
+      '<section class="carta" style="display:flex;gap:8px;align-items:center"><span class="num">A</span><p style="flex:1;margin:0"><b>Fai il punto sul banco con Anna.</b></p><button class="link" data-act="anna-banco">Apri</button></section>';
+  }
+
+  function paint() {
+    const now = new Date();
+    $('#data-breve').textContent = now.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' });
+    $('#ora-header').textContent = hm(now);
+    document.body.dataset.offline = state.offline ? 'true' : 'false';
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', document.body.dataset.tema === 'avorio' ? '#FAF6F0' : '#0B1220');
+    const temaBtn = $('#tema-toggle');
+    const scuro = document.body.dataset.tema !== 'avorio';
+    temaBtn.setAttribute('aria-label', scuro ? 'Passa al tema Avorio' : 'Passa al tema Notte d\'acciaio');
+    $('#icona-tema').innerHTML = scuro
+      ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>'
+      : '<path d="M21 14.5A8 8 0 1 1 9.5 3 6 6 0 0 0 21 14.5z"/>';
+    document.querySelectorAll('[data-act="tema"]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.val === document.body.dataset.tema ? 'true' : 'false'));
+    document.querySelectorAll('[data-act="stile"]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.val === document.body.dataset.stile ? 'true' : 'false'));
+    document.querySelectorAll('[data-act="vista"]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.val === document.body.dataset.vista ? 'true' : 'false'));
+    const m = mondo(now);
+    const nota = '<p class="nota-prova">Dati di fantasia. Paese Esempio non esiste.</p>';
+    $('#stage').innerHTML = nota + (document.body.dataset.vista === 'bottega' ? bottega() : cantiere(m));
+    $('#stage').dataset.ready = state.loading ? '0' : '1';
+    legaGesti();
+    paintOverlay();
+  }
+
+  function paintOverlay() {
+    const o = $('#overlay');
+    if (state.menu) {
+      let nav = '';
+      Object.keys(NAV).forEach((sez) => {
+        nav += '<h3>' + esc(sez) + '</h3>';
+        NAV[sez].forEach((nome) => {
+          nav += '<button class="voce-nav" data-act="nav" data-dove="' + esc(nome) + '"' + (nome === 'Inizio' ? ' aria-current="page"' : '') + '>' + esc(nome) + '</button>';
+        });
+      });
+      o.innerHTML = '<div class="menu"><aside><div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-family:var(--serif);font-size:28px">Artigiano</strong><button class="icona" data-act="chiudi" aria-label="Chiudi il menu" style="color:#f4f7fb">' + ic.x + '</button></div><p class="buio">Workspace attivo<br><b style="color:#f4f7fb">Bottega Esempio</b></p>' + nav + '</aside><div style="flex:1" data-act="chiudi"></div></div>';
+      return;
+    }
+    if (!state.sheet) { o.innerHTML = ''; return; }
+    const s = state.sheet;
+    o.innerHTML = '<div class="overlay"><div class="backdrop" data-act="chiudi"></div><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-titolo">' + foglio(s) + '</div></div>';
+    const sheet = $('.sheet');
+    if (!ridotto() && s.da) {
+      const sheetEl = $('.sheet');
+      const dy = Math.max(-20, Math.min(140, s.da));
+      sheetEl.style.transform = 'translate3d(0,' + dy + 'px,0) scale(.96)';
+      sheetEl.style.opacity = '0.5';
+      requestAnimationFrame(() => {
+        sheetEl.style.transition = 'transform .48s cubic-bezier(.2,.9,.2,1), opacity .28s ease';
+        sheetEl.style.transform = 'none';
+        sheetEl.style.opacity = '1';
+      });
+    }
+  }
+
+  function foglio(s) {
+    const chiudi = '<button class="icona" data-act="chiudi" aria-label="Chiudi">' + ic.x + '</button>';
+    const testa = '<div class="grab"></div><header><h2 id="sheet-titolo" style="flex:1">' + esc(s.titolo) + '</h2>' + chiudi + '</header>';
+    if (s.tipo === 'scheda') {
+      return testa + '<p class="desc">' + esc(s.testo) + '</p><p class="luogo">' + esc(s.dove || '') + '</p>' +
+        '<div class="mini"><button data-act="allegato" data-id="' + esc(s.id) + '" data-i="0">Foto</button><button data-act="allegato" data-id="' + esc(s.id) + '" data-i="1">PDF</button></div>' +
+        '<div class="barra"><button class="btn" data-act="completa-scheda" data-id="' + esc(s.id) + '">Completato</button><button class="btn sec" data-act="modifica">Modifica</button></div>' +
+        '<div class="lista"><button data-act="sposta">Sposta</button><button data-act="riapri-scheda" data-id="' + esc(s.id) + '">Riapri</button><button data-act="elimina">Elimina</button></div>';
+    }
+    if (s.tipo === 'wa') {
+      return testa + '<div class="lista"><button data-act="msg" data-val="Promemoria">Promemoria</button><button data-act="msg" data-val="Conferma">Chiedi conferma</button><button data-act="msg" data-val="Arrivo">Sto arrivando</button><button data-act="msg" data-val="Ritardo">Ritardo</button><button data-act="msg" data-val="Libero">Testo libero</button></div>';
+    }
+    if (s.tipo === 'msg') {
+      return testa + '<textarea id="bozza">' + esc(s.bozza) + '</textarea><p class="desc">Il messaggio parte solo da Invia. In questo prototipo non esce dal telefono.</p><button class="btn" data-act="invia">Invia</button>';
+    }
+    if (s.tipo === 'nav') {
+      return testa + '<p class="desc">' + esc(s.testo) + '</p><div class="lista"><button data-act="mappa" data-val="Google Maps">Google Maps</button><button data-act="mappa" data-val="Mappe">Mappe</button><button data-act="mappa" data-val="Waze">Waze</button></div>';
+    }
+    if (s.tipo === 'paese') {
+      return testa + '<p>In quale paese?</p><div class="lista"><button data-act="paese" data-val="Paese Esempio">Paese Esempio</button><button data-act="paese" data-val="Borgo Esempio">Borgo Esempio</button></div>';
+    }
+    if (s.tipo === 'numeri') {
+      return testa + '<div class="lista"><button data-act="numero" data-val="333 010 2030">333 010 2030 · principale</button><button data-act="numero" data-val="347 000 1111">347 000 1111 · bottega</button></div>';
+    }
+    if (s.tipo === 'lista') {
+      return testa + '<div class="lista">' + s.voci.map((v) => '<button data-act="' + esc(v.act) + '" data-val="' + esc(v.val || '') + '" data-dove="' + esc(v.dove || '') + '">' + esc(v.label) + '</button>').join('') + '</div>';
+    }
+    if (s.tipo === 'testo') {
+      return testa + '<p>' + esc(s.testo) + '</p>' + (s.extra || '');
+    }
+    if (s.tipo === 'allegato') {
+      return testa + '<div class="carta" style="min-height:160px;display:grid;place-items:center"><b>' + esc(s.testo) + '</b></div><div class="barra"><button class="btn sec" data-act="allegato-prev">Precedente</button><button class="btn sec" data-act="allegato-next">Successivo</button></div>';
+    }
+    return testa;
+  }
+
+  function apri(sheet, el) {
+    if (el && el.getBoundingClientRect) sheet.da = el.getBoundingClientRect().top - 80;
+    state.sheet = sheet;
+    state.menu = false;
+    scatto(el);
+    paintOverlay();
+  }
+  function toast(testo, act) {
+    const t = $('#toast');
+    t.hidden = false;
+    t.className = 'toast';
+    t.innerHTML = '<span style="flex:1">' + esc(testo) + '</span>' + (act ? '<button data-act="' + act.act + '" data-id="' + esc(act.id || '') + '">' + esc(act.label) + '</button>' : '');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => { t.hidden = true; }, act ? 4200 : 2200);
+  }
+  function scatto(el) {
+    if (!el || ridotto()) return;
+    el.animate([{ transform: 'scale(1)' }, { transform: 'scale(0.94)' }, { transform: 'scale(1)' }], { duration: 180 });
+  }
+
+  function schedaDi(id) {
+    const testi = {
+      next: ['Lara Vento', 'Controllo caldaia e termosifoni. Chiamare prima. Due numeri in rubrica.', 'Via delle Ombre 12, Paese Esempio'],
+      domani: ['Neri Studio', 'Vetrina nuova, domani alle 09:30. Il cliente non ha ancora confermato.', 'Piazza dei Tigli 4, Borgo Esempio'],
+      dopo: ['Lara Vento', 'Seconda uscita. L\'indirizzo non ha il paese.', 'Via Lunga 5'],
+      tardi: ['Serranda di Toni', 'Urgente: la serranda non sale.', 'Contrada Esempio 3, Borgo Esempio'],
+      passato: ['Porta del laboratorio', 'Registrare la misura. L\'orario è già passato.', 'Piazza dei Tigli 4, Borgo Esempio'],
+      ieri: ['Lara Vento', 'Perizia della caldaia, rimasta da ieri.', 'Via delle Ombre 12, Paese Esempio'],
+      fatto: ['Casa Blu', 'Sostituire il sifone. Già completato.', 'Vicolo Corto 8, Paese Esempio'],
+      senza: ['Consegna chiavi', 'Passare in bottega. Orario ancora da fissare.', 'Bottega Esempio'],
+      memo: ['Richiamare per il pezzo', 'Promemoria per Casa Blu.', 'Paese Esempio']
+    };
+    const t = testi[id] || ['Impegno', 'Scheda di esempio.', 'Paese Esempio'];
+    return { tipo: 'scheda', id, titolo: t[0], testo: t[1], dove: t[2] };
+  }
+
+  function azione(act, el) {
+    const id = el && el.dataset ? el.dataset.id : '';
+    const val = el && el.dataset ? el.dataset.val : '';
+    if (act === 'tema' || act === 'tema-toggle') {
+      const prossimo = act === 'tema' ? val : (document.body.dataset.tema === 'notte' ? 'avorio' : 'notte');
+      document.body.dataset.tema = prossimo;
+      scatto(el); paint(); return;
+    }
+    if (act === 'stile') { document.body.dataset.stile = val; paint(); return; }
+    if (act === 'vista') { document.body.dataset.vista = val; paint(); return; }
+    if (act === 'rete') { state.offline = !state.offline; paint(); return; }
+    if (act === 'fic') { toast('Sincronizzato. Mostro l\'ultimo dato noto.'); return; }
+    if (act === 'campanella') {
+      apri({ tipo: 'lista', titolo: 'Notifiche', voci: [
+        { label: 'Lara Vento ha scritto un messaggio', act: 'scheda', val: 'next' },
+        { label: 'Un promemoria non è partito', act: 'scroll', val: 'azioni' }
+      ]}, el); return;
+    }
+    if (act === 'chiudi') { state.sheet = null; state.menu = false; paintOverlay(); return; }
+    if (act === 'menu') { state.menu = true; state.sheet = null; paintOverlay(); return; }
+    if (act === 'nav') {
+      state.menu = false; paintOverlay();
+      toast(val === 'Inizio' ? 'Sei già su Inizio.' : val + ' non è in questo prototipo.');
+      return;
+    }
+    if (act === 'vai') { toast(el.dataset.dove + ' non è in questo prototipo.'); return; }
+    if (act === 'cerca') {
+      apri({ tipo: 'lista', titolo: 'Cerca', voci: [
+        { label: 'Nuovo impegno', act: 'nuovo', val: 'impegno' },
+        { label: 'Lara Vento · cliente di esempio', act: 'scheda', val: 'next' },
+        { label: 'Vai a Meteo', act: 'vai', dove: 'Meteo' }
+      ]}, el); return;
+    }
+    if (act === 'mic') {
+      apri({ tipo: 'testo', titolo: 'Detta', testo: 'Tieni premuto il microfono e parla come al telefono. Esempio già sentito: domani alle 9 da Lara Vento, Paese Esempio.', extra: '<button class="btn" data-act="nuovo" data-val="dettato">Metti nel programma</button>' }, el); return;
+    }
+    if (act === 'fab') {
+      apri({ tipo: 'lista', titolo: 'Azioni rapide', voci: [
+        { label: 'Scatta una foto', act: 'nuovo', val: 'foto' },
+        { label: 'Nuovo impegno', act: 'nuovo', val: 'impegno' },
+        { label: 'Nuova riparazione', act: 'nuovo', val: 'riparazione' },
+        { label: 'Detta una nota', act: 'mic' }
+      ]}, el); return;
+    }
+    if (act === 'nuovo') { state.sheet = null; paintOverlay(); toast(val === 'foto' ? 'Nel prototipo la fotocamera non si apre.' : 'Preparato. In app finirebbe nel modulo giusto.'); return; }
+    if (act === 'anna' || act === 'anna-banco') {
+      const prompt = act === 'anna-banco'
+        ? 'Fammi il punto sul banco: cosa è pronto da consegnare, cosa è fermo da troppo e da cosa conviene partire oggi.'
+        : 'Aiutami a preparare l\'intervento da Lara Vento: cosa devo portare e cosa controllare prima di partire?';
+      apri({ tipo: 'msg', titolo: 'Anna', bozza: prompt }, el); return;
+    }
+    if (act === 'scheda' || act === 'gestisci') { apri(schedaDi(id || val || 'next'), el); return; }
+    if (act === 'chiedi') {
+      apri({ tipo: 'msg', titolo: 'Chiedi conferma', bozza: 'Ciao Lara, mi confermi l\'intervento di oggi a Paese Esempio? Grazie, Marco della Bottega Esempio.' }, el); return;
+    }
+    if (act === 'whatsapp') { apri({ tipo: 'wa', titolo: 'Cosa gli scrivo' }, el); return; }
+    if (act === 'msg') {
+      const bozze = {
+        Promemoria: 'Ti ricordo l\'appuntamento. A domani.',
+        Conferma: 'Mi confermi l\'orario?',
+        Arrivo: 'Sto arrivando.',
+        Ritardo: 'Faccio qualche minuto di ritardo.',
+        Libero: ''
+      };
+      apri({ tipo: 'msg', titolo: val, bozza: bozze[val] || '' }, el); return;
+    }
+    if (act === 'invia') { state.sheet = null; paintOverlay(); toast('Nel prototipo il messaggio resta qui.'); return; }
+    if (act === 'chiama') { apri({ tipo: 'numeri', titolo: 'Chiama' }, el); return; }
+    if (act === 'numero') { state.sheet = null; paintOverlay(); toast('Chiamerei il ' + val + '. Nessuna chiamata vera.'); return; }
+    if (act === 'naviga') {
+      if (id === 'dopo') apri({ tipo: 'paese', titolo: 'Naviga' }, el);
+      else apri({ tipo: 'nav', titolo: 'Naviga', testo: 'Via delle Ombre 12, Paese Esempio' }, el);
+      return;
+    }
+    if (act === 'paese') { apri({ tipo: 'nav', titolo: 'Naviga', testo: 'Via Lunga 5, ' + val }, el); return; }
+    if (act === 'mappa') { state.sheet = null; paintOverlay(); toast('Aprirei ' + val + '. Nessun navigatore vero.'); return; }
+    if (act === 'email') { toast('Bozza per lara.vento@esempio.test'); return; }
+    if (act === 'completato' || act === 'completa-scheda') {
+      state.done[id] = true; state.sheet = null; paint(); toast('Segnato come completato.'); return;
+    }
+    if (act === 'riapri-scheda') { state.done[id] = false; state.sheet = null; paint(); toast('Impegno riaperto.'); return; }
+    if (act === 'modifica') { toast('Il foglio di modifica, in app, è quello dell\'agenda.'); return; }
+    if (act === 'sposta') {
+      apri({ tipo: 'lista', titolo: 'Sposta', voci: [
+        { label: 'Domani', act: 'spostato', val: 'domani' },
+        { label: 'Dopodomani', act: 'spostato', val: 'dopodomani' }
+      ]}, el); return;
+    }
+    if (act === 'spostato') { state.sheet = null; paintOverlay(); toast('Spostato a ' + val + ', solo in questa prova.'); return; }
+    if (act === 'elimina') {
+      apri({ tipo: 'testo', titolo: 'Eliminare?', testo: 'L\'impegno esce dal programma. In questa prova non si cancella niente di vero.', extra: '<button class="btn" data-act="eliminato">Elimina</button>' }, el); return;
+    }
+    if (act === 'eliminato') { state.sheet = null; paintOverlay(); toast('Eliminato solo dal prototipo.'); return; }
+    if (act === 'ignora' || act === 'chiuso') { state.ignored[id] = true; paint(); toast(act === 'chiuso' ? 'Segnato al chiuso. Niente più avvisi meteo su questo impegno.' : 'Suggerimento chiuso.'); return; }
+    if (act === 'wa-riga') { apri({ tipo: 'testo', titolo: 'Toni B.', testo: 'La serranda non sale. Proposta: domani alle 15, Contrada Esempio. In app si aprirebbe la scheda contatto.' }, el); return; }
+    if (act === 'allegato' || act === 'allegato-next' || act === 'allegato-prev') {
+      const nomi = ['foto-pezzo.jpg', 'perizia-esempio.pdf'];
+      const i = act === 'allegato' ? Number(el.dataset.i || 0) : ((state.allegato || 0) + (act === 'allegato-next' ? 1 : -1) + 2) % 2;
+      state.allegato = i;
+      apri({ tipo: 'allegato', titolo: 'Allegato', testo: nomi[i] + ' · file di fantasia' }, el); return;
+    }
+    if (act === 'chiudi-recap') { state.recap = false; paint(); return; }
+    if (act === 'riattiva') { $('#esito-push').textContent = 'Notifiche riattivate su questo dispositivo.'; state.notifiche = false; setTimeout(paint, 700); return; }
+    if (act === 'piu-tardi') { state.primi = false; paint(); toast('Primi passi rimandati a domani.'); return; }
+    if (act === 'lista-passi') { state.primiLista = !state.primiLista; paint(); return; }
+    if (act === 'salta') { state.saltati.anna = 'skip'; toast('Passo saltato. Lo ritrovi nell\'elenco.'); return; }
+    if (act === 'riprendi') { delete state.saltati[id]; paint(); return; }
+    if (act === 'basta-passi') { state.primi = false; paint(); toast('Guida chiusa. Compare il suggerimento sul mezzo.'); return; }
+    if (act === 'segna') { state.azioni = false; state.continuation = false; paint(); toast('Segnato come fatto.'); return; }
+    if (act === 'giorno') {
+      state.giorno = val;
+      paint();
+      const n = document.getElementById('giorno-' + val);
+      if (n) n.scrollIntoView({ behavior: ridotto() ? 'auto' : 'smooth', block: 'start' });
+      return;
+    }
+    if (act === 'scroll') {
+      state.sheet = null; paintOverlay();
+      const n = document.getElementById(el.dataset.id || val);
+      if (n) n.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    if (act === 'avvisa') {
+      if (id === 'stop') { state.optOut = true; paint(); }
+      else toast('Messaggio di ritiro pronto. Non è stato inviato.');
+      return;
+    }
+    if (act === 'riprova' || act === 'mostra-dati') { state.programma = 'dati'; state.loading = false; paint(); toast('Giornata aggiornata.'); return; }
+    if (act === 'mostra-vuoto') { state.programma = 'vuoto'; paint(); return; }
+    if (act === 'mostra-errore') { state.programma = 'errore'; paint(); return; }
+    if (act === 'mostra-scheletro') { state.programma = 'scheletro'; paint(); return; }
+    if (act === 'mostra-2fa') { state.twofa = true; paint(); return; }
+    if (act === 'annulla-2fa') { state.twofa = false; paint(); toast('Richiesta annullata.'); return; }
+    if (act === 'mappa') { $('#mappa').open = true; $('#mappa').scrollIntoView({ behavior: 'smooth' }); return; }
+    if (act === 'annulla-conferma') {
+      delete state.confirmed[id]; paint(); toast('Conferma annullata.'); return;
+    }
+  }
+
+  function conferma(id) {
+    state.confirmed[id] = true;
+    paint();
+    toast('Confermato dal cliente.', { act: 'annulla-conferma', id: id, label: 'Annulla' });
+  }
+
+  const gesto = { tipo: null };
+  function ptDi(e) { return e.touches ? (e.touches[0] || e.changedTouches[0]) : e; }
+  function statoCursore(pista) {
+    if (!pista._c) {
+      pista._c = { p: 0, v: 0, frame: 0, chiuso: false };
+      const thumb = pista.querySelector('.pollice');
+      const fill = pista.querySelector('.fill');
+      const et = pista.querySelector('.etichetta');
+      pista._c.corsa = () => Math.max(1, pista.clientWidth - thumb.offsetWidth - 8);
+      pista._c.dipingi = (n) => {
+        const c = pista._c;
+        c.p = Math.max(0, Math.min(1, n));
+        thumb.style.transform = 'translate3d(' + (c.p * c.corsa()) + 'px,0,0)';
+        fill.style.transform = 'scaleX(' + Math.max(0.08, c.p) + ')';
+        et.style.opacity = String(Math.max(0, 1 - c.p * 1.6));
+        pista.setAttribute('aria-valuenow', String(Math.round(c.p * 100)));
+        pista.setAttribute('aria-valuetext', c.p >= 1 ? 'Confermato' : 'Scorri per confermare');
+      };
+      pista.addEventListener('keydown', (e) => {
+        const c = pista._c;
+        if (c.chiuso) return;
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'End') { e.preventDefault(); chiudiCursore(pista); }
+        else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); const n = Math.min(1, c.p + 0.1); if (n >= SOGLIA) chiudiCursore(pista); else mollaCursore(pista, n); }
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); mollaCursore(pista, Math.max(0, c.p - 0.1)); }
+        else if (e.key === 'Home') { e.preventDefault(); mollaCursore(pista, 0); }
+      });
+    }
+    return pista._c;
+  }
+  function mollaCursore(pista, dest, poi) {
+    const c = statoCursore(pista);
+    cancelAnimationFrame(c.frame);
+    const step = () => {
+      const s = passoMolla(c.p, dest, c.v, 0.28, 0.72, 0.08);
+      c.v = s.v; c.dipingi(s.x);
+      if (s.fermo) { if (poi) poi(); }
+      else c.frame = requestAnimationFrame(step);
+    };
+    c.frame = requestAnimationFrame(step);
+  }
+  function chiudiCursore(pista) {
+    const c = statoCursore(pista);
+    if (c.chiuso) return;
+    c.chiuso = true;
+    scatto(pista.querySelector('.pollice'));
+    mollaCursore(pista, 1, () => setTimeout(() => conferma(pista.dataset.cursore), ridotto() ? 0 : 480));
+  }
+  function statoSwipe(box) {
+    if (!box._s) {
+      const face = box.querySelector('.faccia');
+      box._s = { x: 0, v: 0, frame: 0, trascinato: false, face };
+      box._s.dipingi = (n) => {
+        const s = box._s;
+        s.x = Math.max(SWIPE_MIN, Math.min(0, n));
+        face.style.transform = 'translate3d(' + s.x + 'px,0,0)';
+      };
+      face.addEventListener('click', (e) => {
+        if (!box._s.trascinato) return;
+        box._s.trascinato = false;
+        e.preventDefault();
+        e.stopPropagation();
+      }, true);
+      const chiedi = box.querySelector('.chiedi');
+      if (chiedi) chiedi.addEventListener('focus', () => box._s.dipingi(SWIPE_APERTO));
+    }
+    return box._s;
+  }
+  function mollaSwipe(box, dest) {
+    const s = statoSwipe(box);
+    cancelAnimationFrame(s.frame);
+    const step = () => {
+      const n = passoMolla(s.x, dest, s.v, 0.3, 0.72, 0.8);
+      s.v = n.v; s.dipingi(n.x);
+      if (!n.fermo) s.frame = requestAnimationFrame(step);
+    };
+    s.frame = requestAnimationFrame(step);
+  }
+  function giuGesto(e) {
+    if (gesto.tipo) return;
+    const t = e.target;
+    if (!(t instanceof Element)) return;
+    const pista = t.closest('[data-cursore]');
+    if (pista) {
+      const c = statoCursore(pista);
+      if (c.chiuso) return;
+      if (e.type === 'pointerdown' && e.button != null && e.button !== 0) return;
+      const pt = ptDi(e);
+      if (!pt) return;
+      cancelAnimationFrame(c.frame);
+      gesto.tipo = 'cursore'; gesto.via = e.type.startsWith('pointer') ? 'pointer' : 'touch';
+      gesto.el = pista; gesto.x = pt.clientX; gesto.p = c.p; gesto.mosso = 0;
+      pista.focus({ preventScroll: true });
+      if (e.cancelable && gesto.via === 'pointer') e.preventDefault();
+      return;
+    }
+    const box = t.closest('[data-swipe]');
+    if (!box || t.closest('.cursore, .chiedi')) return;
+    if (e.type === 'pointerdown' && e.button != null && e.button !== 0) return;
+    const s = statoSwipe(box);
+    const pt = ptDi(e);
+    if (!pt) return;
+    cancelAnimationFrame(s.frame);
+    gesto.tipo = 'swipe'; gesto.via = e.type.startsWith('pointer') ? 'pointer' : 'touch';
+    gesto.el = box; gesto.x = pt.clientX; gesto.y = pt.clientY; gesto.da = s.x; gesto.blocco = null;
+  }
+  function muoviGesto(e) {
+    if (!gesto.tipo) return;
+    if (gesto.via === 'pointer' && e.type.startsWith('touch')) return;
+    if (gesto.via === 'touch' && e.type.startsWith('pointer')) return;
+    const pt = ptDi(e);
+    if (!pt || !gesto.el.isConnected) { gesto.tipo = null; return; }
+    if (gesto.tipo === 'cursore') {
+      const c = statoCursore(gesto.el);
+      const dx = pt.clientX - gesto.x;
+      gesto.mosso = Math.max(gesto.mosso, Math.abs(dx));
+      if (e.cancelable) e.preventDefault();
+      c.dipingi(gesto.p + dx / c.corsa());
+      return;
+    }
+    const s = statoSwipe(gesto.el);
+    const dx = pt.clientX - gesto.x;
+    const dy = pt.clientY - gesto.y;
+    if (gesto.blocco == null) {
+      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+      if (Math.abs(dy) > Math.abs(dx)) { gesto.tipo = null; return; }
+      gesto.blocco = true;
+    }
+    if (e.cancelable) e.preventDefault();
+    s.trascinato = Math.abs(dx) >= 8;
+    s.dipingi(gesto.da + dx);
+  }
+  function suGesto(e) {
+    if (!gesto.tipo) return;
+    if (gesto.via === 'pointer' && e.type.startsWith('touch')) return;
+    if (gesto.via === 'touch' && e.type.startsWith('pointer')) return;
+    const tipo = gesto.tipo;
+    const el = gesto.el;
+    const mosso = gesto.mosso;
+    gesto.tipo = null;
+    if (!el.isConnected) return;
+    if (tipo === 'cursore') {
+      const c = statoCursore(el);
+      if (c.chiuso) return;
+      if (mosso < 10 || c.p >= SOGLIA) chiudiCursore(el);
+      else mollaCursore(el, 0);
+      return;
+    }
+    const s = statoSwipe(el);
+    mollaSwipe(el, s.x < SWIPE_SOGLIA ? SWIPE_APERTO : 0);
+    if (s.trascinato) setTimeout(() => { s.trascinato = false; }, 400);
+  }
+  function legaGesti() {
+    document.querySelectorAll('[data-cursore]').forEach((p) => { statoCursore(p); p._c.dipingi(p._c.p); });
+    document.querySelectorAll('[data-swipe]').forEach((b) => statoSwipe(b));
+  }
+  document.addEventListener('pointerdown', giuGesto);
+  document.addEventListener('touchstart', giuGesto, { passive: true });
+  window.addEventListener('pointermove', muoviGesto, { passive: false });
+  window.addEventListener('touchmove', muoviGesto, { passive: false });
+  window.addEventListener('pointerup', suGesto);
+  window.addEventListener('pointercancel', suGesto);
+  window.addEventListener('touchend', suGesto);
+  window.addEventListener('touchcancel', suGesto);
+
+  function legaPull() {
+    const main = $('#main');
+    const label = $('#pull-label');
+    let start = 0, dy = 0, pronto = false, via = '';
+    main.addEventListener('scroll', () => {
+      $('#header').dataset.scrolled = main.scrollTop > 4 ? 'true' : 'false';
+    }, { passive: true });
+    function zonaLibera(t) {
+      return !(t instanceof Element) || !t.closest('[data-cursore], [data-swipe], .dock, .proto, header, .giorni');
+    }
+    function begin(y, kind, target) {
+      if (main.scrollTop > 2 || !zonaLibera(target)) return;
+      start = y; dy = 0; pronto = true; via = kind;
+    }
+    function move(y, e) {
+      if (!pronto) return;
+      dy = y - start;
+      if (dy > 0 && main.scrollTop <= 2) {
+        if (e.cancelable) e.preventDefault();
+        const d = Math.min(dy * 0.45, 84);
+        label.style.transform = 'translate3d(0,' + (d - 36) + 'px,0)';
+        label.style.opacity = String(Math.min(1, d / 56));
+        label.textContent = d > 56 ? 'Rilascia per aggiornare' : 'Tira per aggiornare';
+      }
+    }
+    function fine() {
+      if (!pronto) return;
+      const abbastanza = dy > 70 && main.scrollTop <= 2;
+      pronto = false; dy = 0; via = '';
+      label.style.transform = 'translate3d(0,-36px,0)';
+      label.style.opacity = '0';
+      label.textContent = 'Tira per aggiornare';
+      if (!abbastanza) return;
+      state.loading = true; paint();
+      setTimeout(() => { state.loading = false; state.programma = 'dati'; paint(); toast('Giornata aggiornata.'); }, ridotto() ? 0 : 700);
+    }
+    main.addEventListener('touchstart', (e) => begin(e.touches[0].clientY, 'touch', e.target), { passive: true });
+    main.addEventListener('touchmove', (e) => { if (via === 'touch') move(e.touches[0].clientY, e); }, { passive: false });
+    main.addEventListener('touchend', () => { if (via === 'touch') fine(); });
+    main.addEventListener('touchcancel', () => { if (via === 'touch') fine(); });
+    main.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'touch') begin(e.clientY, 'pointer', e.target); });
+    main.addEventListener('pointermove', (e) => { if (via === 'pointer') move(e.clientY, e); });
+    main.addEventListener('pointerup', () => { if (via === 'pointer') fine(); });
+    main.addEventListener('pointercancel', () => { if (via === 'pointer') fine(); });
+  }
+
+  document.body.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-act]');
+    if (!b) return;
+    azione(b.dataset.act, b);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { state.sheet = null; state.menu = false; paintOverlay(); }
+  });
+
+  const body = document.getElementById('mappa-body');
+  body.innerHTML = MAPPA.map((r) => '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td></tr>').join('') +
+    '<tr><td colspan="2"><button class="btn sec" data-act="mostra-dati">Programma con i dati</button> <button class="btn sec" data-act="mostra-vuoto">Settimane vuote</button> <button class="btn sec" data-act="mostra-errore">Errore di caricamento</button> <button class="btn sec" data-act="mostra-scheletro">Scheletro</button> <button class="btn sec" data-act="mostra-2fa">Mostra avviso verifica</button></td></tr>';
+
+  legaPull();
+  if (ridotto()) paint();
+  else {
+    $('#stage').innerHTML = '<div class="skel lg"></div><div class="skel"></div><div class="skel lg"></div>';
+    setTimeout(paint, 420);
+  }
+  window.__homeOk = true;
+})();
+</script>
+</body>
+</html>
